@@ -18,9 +18,6 @@ def main():
     #get logger
     logger = logging.getLogger()
 
-    #get directory of all stored tweet filenames
-    path = os.getcwd() + '/tweets/'
-
     #create the api
     my_api = create_api.create_api
 
