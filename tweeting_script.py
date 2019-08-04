@@ -1,38 +1,25 @@
 import tweepy
 import os
+import sys
 import time
+import random
 import logging
-import natsort
 
+import db_script
 '''
 contains all functions needed to post a tweet.
 '''
 
+    #WAIT_TIME_IN_SEC = 21600 #tweet roughly 4 times a day
 
 logger = logging.getLogger()
 
-#get one giant list of all tweet file names
-def get_file_names(file_path):
 
-    file_names_array = []
+def get_random_num():
 
-    for infile in sorted(os.listdir(file_path)):
-        if infile.endswith('.txt'):
+    random_num = random.randrange(1, 52, 1)
 
-            file_names_array.append(infile)
-
-    natsort.natsorted(file_names_array, reverse = False)
-
-    return file_names_array
-
-
-#read the next tweet in line and post it
-def read_tweet(name):
-
-    f = open(name, "r")
-    content = f.read()
-
-    return content
+    return random_num
 
 
 def post_tweet(tweet, api):
@@ -41,31 +28,25 @@ def post_tweet(tweet, api):
     logger.info('Successfully tweeted')
 
 
-#check if current tweet is below twitter's char limit
-def char_limit_check(tweet):
-
-    CHAR_LIMIT = 280
-
-    if len(tweet) <= CHAR_LIMIT:
-        return True
-    else: 
-        return False
-
 #combine all functions into one pipeline
-def tweet_pipeline(file_path, api):
+def tweet_pipeline(conn, api):
 
-    WAIT_TIME_IN_SEC = 21600 #tweet roughly 4 times a day
-    counter = 0
-    file_array = get_file_names(file_path)
+    empty_check = db_script.is_empty(conn)
 
-    while counter != len(file_array):
-        for i in file_array:
+    if (empty_check == 1):
 
-            tweet = read_tweet(file_path + i)
+        num = get_random_num()
+        tweet = db_script.read_query(conn, num)
+        post_tweet(tweet)
 
-            if char_limit_check(tweet) == True:
+    else:
 
-                post_tweet(tweet, api)
+        print('Ran out of tweets')
+        sys.stdout.flush()
+        return
 
-            counter +=1
-            time.sleep(WAIT_TIME_IN_SEC)
+
+
+
+
+
