@@ -18,17 +18,22 @@ def main():
     #get logger
     logger = logging.getLogger()
 
-    #create the api
+    #create twitter api
     my_api = create_api.create_api
+    print('Created twitter API')
+    sys.stdout.flush()
 
     #connect to database
     my_conn = db_connect.get_connection
+    print('Created db connection')
+    sys.stdout.flush()
 
     #start tweeting script in a different thread
     tweeting_script_thread = Thread(target = tweeting_script.tweet_pipeline, args = (path, my_api))
+
     tweeting_script_thread.start()
-
-
+    print('Started tweeting thread')
+    sys.stdout.flush()
 
 
 

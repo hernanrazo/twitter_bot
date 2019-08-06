@@ -13,7 +13,10 @@ def is_empty(conn):
 def read_query(conn, random_num):
 
     result = conn.execute("SELECT TWEET FROM TWEETS WHERE id = :num",{'num':random_num})
-    return result
+
+    query = result.fetchall()
+
+    return query
 
 
 def delete_query(conn, random_num):
