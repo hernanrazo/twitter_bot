@@ -18,14 +18,27 @@ logger = logging.getLogger()
 def get_random_num():
 
     random_num = random.randrange(1, 52, 1)
-
     return random_num
+
+
+def get_tweet(conn):
+
+    try:
+
+        num = get_random_num()
+        tweet = db_script.read_query(conn, num)
+        return tweet
+
+    except:
+
+        get_tweet(conn)
 
 
 def post_tweet(tweet, api):
 
     api.update_status(tweet)
-    logger.info('Successfully tweeted')
+    print('Successfully tweeted')
+    sys.stdout.flush()
 
 
 #combine all functions into one pipeline
@@ -35,18 +48,12 @@ def tweet_pipeline(conn, api):
 
     if (empty_check == 1):
 
-        num = get_random_num()
-        tweet = db_script.read_query(conn, num)
+        tweet = get_tweet(conn)
         post_tweet(tweet)
 
     else:
 
         print('Ran out of tweets')
         sys.stdout.flush()
+        conn.close()
         return
-
-
-
-
-
-
