@@ -10,6 +10,7 @@ import db_script
 contains all functions needed to post a tweet.
 '''
 
+<<<<<<< HEAD
 logger = logging.getLogger()
 
 
@@ -30,6 +31,18 @@ def get_tweet(conn):
     except:
 
         get_tweet(conn)
+=======
+    #WAIT_TIME_IN_SEC = 21600 #tweet roughly 4 times a day
+
+logger = logging.getLogger()
+
+
+def get_random_num():
+
+    random_num = random.randrange(1, 52, 1)
+
+    return random_num
+>>>>>>> heroku/origin
 
 
 def post_tweet(tweet, api):
@@ -38,6 +51,7 @@ def post_tweet(tweet, api):
     print('Successfully tweeted')
     sys.stdout.flush()
 
+<<<<<<< HEAD
 
 #combine all functions into one pipeline
 def tweet_pipeline(conn, api):
@@ -59,3 +73,27 @@ def tweet_pipeline(conn, api):
         sys.stdout.flush()
         conn.close()
         return
+=======
+#combine all functions into one pipeline
+def tweet_pipeline(conn, api):
+
+    empty_check = db_script.is_empty(conn)
+
+    if (empty_check == 1):
+
+        num = get_random_num()
+        tweet = db_script.read_query(conn, num)
+        post_tweet(tweet)
+
+    else:
+
+        print('Ran out of tweets')
+        sys.stdout.flush()
+        return
+
+
+
+
+
+
+>>>>>>> heroku/origin

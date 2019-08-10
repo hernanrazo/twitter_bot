@@ -1,6 +1,7 @@
 import sqlalchemy
 import db_connect
 
+<<<<<<< HEAD
 #check if table is empty. return 1 if yes, 0 if not
 def is_empty(session):
 
@@ -18,5 +19,31 @@ def delete_query(session, tweet):
 
     delete_query = session.query(tweets_table).filter_by(tweets_table.tweets=tweet)
     delete_query.delete(synchronize session='evaluate')
+=======
+
+def is_empty(conn):
+
+    check = conn.execute('SELECT SIGN(COUNT(*)) FROM tweets')
+    result = check.fetchall()
+
+    return result
+
+
+def read_query(conn, random_num):
+
+    result = conn.execute("SELECT TWEET FROM TWEETS WHERE id = :num",{'num':random_num})
+
+    query = result.fetchall()
+
+    return query
+
+
+def delete_query(conn, random_num):
+
+    result = conn.execute('DELETE tweet FROM tweets WHERE id = :num', {'num': random_num})
+
+
+
+>>>>>>> heroku/origin
 
 

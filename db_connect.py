@@ -2,12 +2,16 @@ import os
 import sys
 import logging
 from sqlalchemy import create_engine
+<<<<<<< HEAD
 from sqlalchemy import MetaData
 from sqlalchemy import Table
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy.orm import mapper
 
 '''everything necessary to get database connection'''
+=======
+
+>>>>>>> heroku/origin
 
 class class_tweets(object):
     pass
@@ -17,6 +21,7 @@ def get_database():
 
     DB_URL = os.environ['DATABASE_URL']
 
+<<<<<<< HEAD
     try:
 
         engine = create_engine(DB_URL, echo=True)
@@ -30,6 +35,19 @@ def get_database():
         sys.stdout.flush()
 
         return session
+=======
+    DB_URL = os.environ['DATABASE_URL']
+
+    try:
+        
+        engine = create_engine(DB_URL)
+        conn = engine.connect()
+
+        print('Successfully connected to database')
+        sys.stdout.flush()
+
+        return conn
+>>>>>>> heroku/origin
 
     except:
 
