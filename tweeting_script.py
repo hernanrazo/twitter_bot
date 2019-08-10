@@ -10,8 +10,6 @@ import db_script
 contains all functions needed to post a tweet.
 '''
 
-    #WAIT_TIME_IN_SEC = 21600 #tweet roughly 4 times a day
-
 logger = logging.getLogger()
 
 
@@ -44,12 +42,16 @@ def post_tweet(tweet, api):
 #combine all functions into one pipeline
 def tweet_pipeline(conn, api):
 
+    WAIT_TIME_IN_SEC = 21600
     empty_check = db_script.is_empty(conn)
 
-    if (empty_check == 1):
+    while(empty_check == 1):
 
         tweet = get_tweet(conn)
         post_tweet(tweet)
+        db_script.delete_query(conn, tweet)
+        conn.commit()
+        time.sleep(WAIT_TIME_IN_SEC)
 
     else:
 
