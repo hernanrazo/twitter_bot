@@ -20,21 +20,17 @@ def main():
     logger = logging.getLogger()
 
     #create twitter api
-    my_api = create_api.create_api
+    my_api = create_api.create_api()
     print('Created twitter API')
     sys.stdout.flush()
 
     #connect to database
-    my_conn = db_connect.get_connection
+    my_conn = db_connect.get_database()
     print('Created db connection')
     sys.stdout.flush()
 
     #start tweeting script in a different thread
-<<<<<<< HEAD
     tweeting_script_thread = Thread(target = tweeting_script.tweet_pipeline, args = (my_conn, my_api))
-=======
-    tweeting_script_thread = Thread(target = tweeting_script.tweet_pipeline, args = (path, my_api))
->>>>>>> heroku/origin
 
     tweeting_script_thread.start()
     print('Started tweeting thread')
