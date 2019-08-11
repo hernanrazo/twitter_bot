@@ -23,6 +23,4 @@ def read_query(session, random_num):
 def delete_query(session, tweet):
 
     delete_query = session.query(tweets_table).filter_by(tweets_table.tweets=tweet)
-    delete_query.delete(synchronize session='evaluate')
-
-
+    delete_query.delete(synchronize_session='evaluate')
