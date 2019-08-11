@@ -17,12 +17,11 @@ def create_api():
 
     try:
         api.verify_credentials()
+        print('Successfully created twitter API')
+        sys.stdout.flush()
+        return api
 
     except Exception as e:
-        logger.error("Error creating twitter API", exc_info = True)
+        print('Error creating twitter API')
+        sys.stdout.flush()
         raise e
-
-
-    logger.info("Successfully created twitter API")
-
-    return api
