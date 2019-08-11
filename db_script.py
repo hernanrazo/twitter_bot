@@ -15,12 +15,12 @@ def is_empty(session):
 #get tweet that matches the given id
 def read_query(session, random_num):
 
-    select_query = session.query(class_tweets).filter_by(class_tweets.id=random_num)
+    select_query = session.execute(text('SELECT tweet FROM tweets WHERE id=:num'), {'num':random_num})
+
     return select_query
 
 
 #delete the tweet that matches the inputted string
 def delete_query(session, tweet):
 
-    delete_query = session.query(tweets_table).filter_by(tweets_table.tweets=tweet)
-    delete_query.delete(synchronize_session='evaluate')
+    delete_query = session.query(text('DELETE FROM tweets WHERE id=:tweet'), {'tweet':tweet})
