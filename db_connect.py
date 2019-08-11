@@ -25,23 +25,10 @@ def get_database():
         mapper(class_tweets, tweets)
         Session = sessionmaker(bind=engine)
         session = Session()
-
         print('Successfully connected to database')
         sys.stdout.flush()
 
         return session
-
-    DB_URL = os.environ['DATABASE_URL']
-
-    try:
-        
-        engine = create_engine(DB_URL)
-        conn = engine.connect()
-
-        print('Successfully connected to database')
-        sys.stdout.flush()
-
-        return conn
 
     except:
 

@@ -4,6 +4,12 @@ import db_connect
 #check if table is empty. return 1 if yes, 0 if not
 def is_empty(session):
 
+    check_query = session.query(class_tweets.id).first()
+
+    if not check_query:
+        return 0
+    else:
+        return 1
 
 
 #get tweet that matches the given id
