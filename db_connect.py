@@ -20,14 +20,29 @@ def get_database():
     try:
 
         engine = create_engine(DB_URL, echo=True)
+        print('1:Created engine')
+        sys.stdout.flush()
+        
         metadata = MetaData(engine)
+        print('2:Created metadata')
+        sys.stdout.flush()
+        
         tweets_table = Table('tweets', metadata, autoload=True)
+        print('3:Created tweets table')
+        sys.stdout.flush()
+        
         mapper(class_tweets, tweets)
+        print('4:Created mapper')
+        sys.stdout.flush()
+        
         Session = sessionmaker(bind=engine)
         session = Session()
-        print('Successfully connected to database')
+        print('Created session')
+        
         sys.stdout.flush()
-
+        print('Successfully connected to database')
+        
+        sys.stdout.flush()
         return session
 
     except:

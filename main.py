@@ -30,7 +30,7 @@ def main():
     tweeting_script_thread = Thread(target = tweeting_script.tweet_pipeline, args = (my_session, my_api))
 
     tweeting_script_thread.start()
-    print('Started tweeting thread')
+    print('Started tweeting thread...')
     sys.stdout.flush()
 
 
