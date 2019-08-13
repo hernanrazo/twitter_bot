@@ -1,5 +1,4 @@
 import sqlalchemy
-import db_connect
 
 #check if table is empty. return 1 if yes, 0 if not
 def is_empty(session):

@@ -4,7 +4,6 @@ import sys
 import time
 import random
 import logging
-import db_script
 
 '''
 contains all functions needed to post a tweet.
