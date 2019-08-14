@@ -16,13 +16,6 @@ main file of bot. All other modules are called and implemented here
 '''
 
 def main():
-'''
-    #create twitter api
-    my_api = create_api.create_api()
-
-    #get database session
-    my_session = db_connect.get_database()
-'''
 
     DB_URL = os.environ['DATABASE_URL']
     CONSUMER_KEY = os.environ['CONSUMER_KEY']
@@ -57,7 +50,6 @@ def main():
     except:
 
         sys.exit('Error: Cannot connect to database')
-
 
 
     #start tweeting script in a different thread
