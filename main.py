@@ -3,11 +3,9 @@ import sys
 import os
 import logging
 from threading import Thread
+from sqlalchemy import create_engine
+from sqlalchemy import MetaData
 from sqlalchemy import Table
-from sqlalchemy import orm
-from sqlalchemy.orm import sessionmaker
-from sqlalchemy.orm import mapper
-from sqlalchemy.ext.declarative import declarative_base
 
 import tweeting_script
 
@@ -17,12 +15,14 @@ main file of bot. All other modules are called and implemented here
 
 def main():
 
+    #set all api credentials and database credentials
     DB_URL = os.environ['DATABASE_URL']
     CONSUMER_KEY = os.environ['CONSUMER_KEY']
     CONSUMER_SECRET = os.environ['CONSUMER_SECRET']
     ACCESS_TOKEN = os.environ['ACCESS_TOKEN']
     ACCESS_TOKEN_SECRET = os.environ['ACCESS_TOKEN_SECRET']
 
+    #log into twitter api
     try:
 
         auth = tweepy.OAuthHandler(CONSUMER_KEY, CONSUMER_SECRET)
@@ -37,23 +37,22 @@ def main():
         raise e
 
 
+    #log into database
     try:
 
-        engine = create_engine(DB_URL, echo=True)
-        metadata = MetaData()
-        metadata.reflect(bind=engine)
-        tweet_table = metadata.tables['tweets']
-        session_maker = orm.sessionmaker(bind=engine, autoflush=True, autocommit=True, expire_on_commit=True)
-        session = orm.scoped_session(session_maker)
-        print('Successfully connected to database')
+        engine = create_engine(DB_URL, echo=False)
+        metadata = MetaData(bind=None)
+        tweets_table = Table('tweets', metadata, autoload=True, autoload_with=engine)
+        print('Successfully retrieved table')
 
     except:
 
-        sys.exit('Error: Cannot connect to database')
+        #quit program if database cannot be reached
+        sys.exit('Error: Cannot communicate with database')
 
 
     #start tweeting script in a different thread
-    tweeting_script_thread = Thread(target = tweeting_script.tweet_pipeline, args = (session, api))
+    tweeting_script_thread = Thread(target = tweeting_script.tweet_pipeline, args = (tweets_table, api))
 
     tweeting_script_thread.start()
     print('Started tweeting thread...')
