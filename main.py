@@ -4,6 +4,7 @@ import os
 import logging
 from threading import Thread
 
+import create_api
 import tweeting_script
 
 '''
