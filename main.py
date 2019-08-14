@@ -17,7 +17,7 @@ def main():
     twitter_api = create_api.create_api()
 
     #start tweeting script in a different thread
-    tweeting_script_thread = Thread(target = tweeting_script.tweet_pipeline, args = (tweets_table, twitter_api))
+    tweeting_script_thread = Thread(target = tweeting_script.tweet_pipeline, args = (twitter_api))
 
     tweeting_script_thread.start()
     print('Started tweeting thread...')
