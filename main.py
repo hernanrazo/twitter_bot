@@ -43,7 +43,7 @@ def main():
         metadata = MetaData()
         metadata.reflect(bind=engine)
         tweet_table = metadata.tables['tweets']
-        session_maker = orm.sessionmaker(bind=engine, autoflush=True, autocommit-True, expire_on_commit=True)
+        session_maker = orm.sessionmaker(bind=engine, autoflush=True, autocommit=True, expire_on_commit=True)
         session = orm.scoped_session(session_maker)
         print('Successfully connected to database')
 
