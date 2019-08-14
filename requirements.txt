@@ -7,6 +7,7 @@ cryptography==2.7
 idna==2.8
 natsort==6.0.0
 oauthlib==3.0.1
+psycopg2==2.8.3
 pycparser==2.19
 PyJWT==1.7.1
 pyOpenSSL==19.0.0

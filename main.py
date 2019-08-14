@@ -2,6 +2,7 @@ import tweepy
 import sys
 import os
 import logging
+import psycopg2
 from threading import Thread
 from sqlalchemy import create_engine
 from sqlalchemy import MetaData
@@ -40,7 +41,9 @@ def main():
     #log into database
     try:
 
-        engine = create_engine(DB_URL, echo=False)
+        conn = psycopg2.connect(DB_URL, sslmode='require')
+
+        #engine = create_engine(DB_URL, echo=False)
         #metadata = MetaData(bind=None)
         #tweets_table = Table('tweets', metadata, autoload=True, autoload_with=engine)
         print('Successfully retrieved table')
@@ -52,11 +55,10 @@ def main():
 
 
     #start tweeting script in a different thread
-    tweeting_script_thread = Thread(target = tweeting_script.tweet_pipeline, args = (tweets_table, api))
+#    tweeting_script_thread = Thread(target = tweeting_script.tweet_pipeline, args = (tweets_table, api))
 
-    tweeting_script_thread.start()
+ #   tweeting_script_thread.start()
     print('Started tweeting thread...')
-
 
 if __name__ == "__main__":
 
