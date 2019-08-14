@@ -19,10 +19,8 @@ def create_api():
     try:
         api.verify_credentials()
         print('Successfully created twitter API')
-        sys.stdout.flush()
         return api
 
     except Exception as e:
         print('Error creating twitter API')
-        sys.stdout.flush()
         raise e
