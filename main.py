@@ -41,8 +41,8 @@ def main():
     try:
 
         engine = create_engine(DB_URL, echo=False)
-        metadata = MetaData(bind=None)
-        tweets_table = Table('tweets', metadata, autoload=True, autoload_with=engine)
+        #metadata = MetaData(bind=None)
+        #tweets_table = Table('tweets', metadata, autoload=True, autoload_with=engine)
         print('Successfully retrieved table')
 
     except:
