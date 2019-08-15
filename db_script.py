@@ -4,7 +4,7 @@ import psycopg2
 def is_empty(cursor):
 
     check_query = cursor.execute('SELECT SIGN(COUNT(*)) FROM tweets')
-    print('check_query value: ' + check_query)
+    print('check_query value: ' + str(check_query))
 
     if not check_query:
         return 0
