@@ -65,6 +65,7 @@ def tweet_pipeline(api):
         post_tweet(tweet)
         db_script.delete_query(my_cursor, tweet)
         conn.close()
+        print('Waiting for next tweet...')
         time.sleep(WAIT_TIME_IN_SEC)
 
     else:

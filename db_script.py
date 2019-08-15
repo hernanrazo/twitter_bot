@@ -4,8 +4,12 @@ import psycopg2
 def is_empty(cursor):
 
     check_query = cursor.execute('SELECT SIGN(COUNT(*)) FROM tweets')
+    print('check_query value: ' + check_query)
 
-    return check_query
+    if not check_query:
+        return 0
+    else:
+        return 1
 
 
 #get tweet that matches the given id
