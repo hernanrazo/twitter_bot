@@ -6,7 +6,7 @@ def is_empty(cursor):
     check_query = cursor.execute('SELECT SIGN(COUNT(*)) FROM tweets')
     print('check_query value: ' + str(check_query))
 
-    if not check_query:
+    if check_query is None:
         return 0
     else:
         return 1
