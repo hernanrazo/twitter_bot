@@ -58,8 +58,9 @@ def tweet_pipeline(api):
 
 
     empty_check = db_script.is_empty(my_cursor)
+    print("empty_check: " + str(empty_check))
 
-    while(empty_check == 1):
+    while(empty_check==1):
 
         tweet = get_tweet(my_cursor)
         post_tweet(tweet)
