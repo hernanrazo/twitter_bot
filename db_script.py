@@ -3,8 +3,12 @@ import psycopg2
 #check if table is empty. return 1 if yes, 0 if not
 def is_empty(cursor):
 
-    check_query = cursor.execute('SELECT SIGN(COUNT(*)) FROM tweets')
-    print('check_query value: ' + str(check_query))
+    cursor.execute('SELECT SIGN(COUNT(*)) FROM tweets')
+    result = cursor.fetchone()
+
+    while result is not None:
+        print('check_query value: ' + str(result))
+
 
     if check_query is None:
         return 0
