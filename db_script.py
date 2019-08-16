@@ -5,21 +5,15 @@ def is_empty(cursor):
 
     cursor.execute('SELECT SIGN(COUNT(*)) FROM tweets')
     result = cursor.fetchone()
-    print(int(result[0]))
-
-
-    if check_query is None:
-        return 0
-    else:
-        return 1
+    return int(result[0])
 
 
 #get tweet that matches the given id
 def read_query(cursor, random_num):
 
     select_query = cursor.execute('SELECT tweet FROM tweets WHERE id = %(num)d', {'num':random_num})
-
-    return select_query
+    result = cursor.fetchone()
+    return result[0]
 
 
 #delete the tweet that matches the inputted string

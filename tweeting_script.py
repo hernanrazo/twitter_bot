@@ -58,13 +58,13 @@ def tweet_pipeline(api):
 
 
     empty_check = db_script.is_empty(my_cursor)
-    print("empty_check: " + str(empty_check))
 
     while(empty_check==1):
 
         tweet = get_tweet(my_cursor)
         post_tweet(tweet)
-        db_script.delete_query(my_cursor, tweet)
+#        db_script.delete_query(my_cursor, tweet)
+        my_cursor.close()
         conn.close()
         print('Waiting for next tweet...')
         time.sleep(WAIT_TIME_IN_SEC)
@@ -72,5 +72,6 @@ def tweet_pipeline(api):
     else:
 
         print('Ran out of tweets')
+        my_cursor.close()
         conn.close()
         return
