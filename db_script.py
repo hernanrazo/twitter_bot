@@ -7,7 +7,7 @@ def is_empty(cursor):
     result = cursor.fetchone()
 
     while result is not None:
-        print('check_query value: ' + str(result))
+        print('check_query value: ' + str(result[1]))
 
 
     if check_query is None:
