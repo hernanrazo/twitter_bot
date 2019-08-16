@@ -5,10 +5,7 @@ def is_empty(cursor):
 
     cursor.execute('SELECT SIGN(COUNT(*)) FROM tweets')
     result = cursor.fetchone()
-
-    while result is not None:
-        print('check_query value: ')
-        print(int(result[0]))
+    print(int(result[0]))
 
 
     if check_query is None:
