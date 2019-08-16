@@ -24,15 +24,11 @@ def get_random_num():
 #retrieve tweet from the database
 def get_tweet(cursor):
 
-    try:
+    num = get_random_num()
+    tweet = db_script.read_query(cursor, num)
 
-        num = get_random_num()
-        tweet = db_script.read_query(cursor, num)
+    if tweet not None:
         return tweet
-
-    except:
-
-        get_tweet(cursor)
 
 
 #post to twitter
