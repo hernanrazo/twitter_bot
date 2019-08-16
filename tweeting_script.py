@@ -27,7 +27,7 @@ def get_tweet(cursor):
     num = get_random_num()
     tweet = db_script.read_query(cursor, num)
 
-    if tweet not None:
+    if tweet is not None:
         return tweet
 
 
