@@ -58,7 +58,7 @@ def tweet_pipeline(api):
     while(empty_check==1):
 
         tweet = get_tweet(my_cursor)
-        post_tweet(tweet)
+        post_tweet(tweet, api)
 #        db_script.delete_query(my_cursor, tweet)
         my_cursor.close()
         conn.close()
