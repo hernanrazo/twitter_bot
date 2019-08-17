@@ -11,7 +11,7 @@ def is_empty(cursor):
 #get tweet that matches the given id
 def read_query(cursor, random_num):
 
-    select_query = cursor.execute('SELECT tweet FROM tweets WHERE id = %(num)d', {'num':random_num})
+    select_query = cursor.execute('SELECT tweet FROM tweets WHERE id = %s', (random_num))
     result = cursor.fetchone()
     return result[0]
 
@@ -19,4 +19,4 @@ def read_query(cursor, random_num):
 #delete the tweet that matches the inputted string
 def delete_query(cursor, tweet):
 
-    delete_query = cursor.execute('DELETE FROM tweets WHERE tweet = %(tweet)d', {'tweet':tweet})
+    delete_query = cursor.execute('DELETE FROM tweets WHERE tweet = %s', (tweet))
