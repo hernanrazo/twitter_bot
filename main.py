@@ -21,6 +21,8 @@ def main():
 
     tweeting_thread.start()
     print('Started tweeting thread...')
+    sys.stdout.flush()
+
 
 if __name__ == "__main__":
 
