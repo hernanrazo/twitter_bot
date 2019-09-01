@@ -37,8 +37,6 @@ def post_tweet(tweet, api):
 
     api.update_status(tweet)
     print('Successfully tweeted')
-    sys.stdout.flush()
-
 
 #combine all functions into one pipeline
 def tweet_pipeline(api):
@@ -49,32 +47,26 @@ def tweet_pipeline(api):
         conn = psycopg2.connect(DB_URL, sslmode='require')
         my_cursor = conn.cursor()
         print('Successfully connected to database')
-        sys.stdout.flush()
 
     except:
         sys.exit('Error: Cannot connect to database')
-        sys.stdout.flush()
 
     empty_check = db_script.is_empty(my_cursor)
 
     while(empty_check==1):
 
         print('passed empty check')
-        sys.stdout.flush()
-
         tweet = get_tweet(my_cursor)
         post_tweet(tweet, api)
         db_script.delete_query(my_cursor, tweet)
         conn.commit()
 
         print('Waiting for next tweet...')
-        sys.stdout.flush()
         time.sleep(WAIT_TIME_IN_SEC)
 
     else:
 
         print('Ran out of tweets')
-        sys.stdout.flush()
         my_cursor.close()
         conn.close()
         return
