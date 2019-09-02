@@ -11,7 +11,6 @@ import db_script
 '''
 contains all functions needed to post a tweet.
 '''
-DB_URL = os.environ['DATABASE_URL']
 
 
 #return random munber between 1 and 52
@@ -23,12 +22,12 @@ def get_random_num():
 
 
 #retrieve tweet from the database
-def get_tweet(cursor):
+def get_tweet(cursor, selected_id):
 
-    num = get_random_num()
-    tweet = db_script.read_query(cursor, num)
+    tweet = db_script.read_query(cursor, selected_id)
     print(tweet)
     return tweet
+
 
 #post to twitter
 def post_tweet(tweet, api):
@@ -36,11 +35,13 @@ def post_tweet(tweet, api):
     api.update_status(tweet)
     print('Successfully tweeted')
 
+
 #combine all functions into one pipeline
 def tweet_pipeline(api):
 
     WAIT_TIME_IN_SEC = 21600
     try:
+        DB_URL = os.environ['DATABASE_URL']
         conn = psycopg2.connect(DB_URL, sslmode='require')
         my_cursor = conn.cursor()
         print('Successfully connected to database')
@@ -53,7 +54,8 @@ def tweet_pipeline(api):
     while empty_check==1:
 
         print('passed empty check')
-        tweet = get_tweet(my_cursor)
+        tweet_id = db_script.get_id(my_cursor)
+        tweet = get_tweet(my_cursor, tweet_id)
         post_tweet(tweet, api)
         db_script.delete_query(my_cursor, tweet)
         conn.commit()
