@@ -13,8 +13,9 @@ def read_query(cursor, random_num):
 
     select_query = cursor.execute('SELECT tweet FROM tweets WHERE id = %s', (random_num,))
     result = cursor.fetchone()
+    print("db_script result: " + result)
 
-    while result is not None:
+    if result is not None:
         return result[0]
 
 #    else:
