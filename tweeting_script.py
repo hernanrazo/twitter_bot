@@ -29,7 +29,7 @@ def get_tweet(cursor):
     tweet = db_script.read_query(cursor, num)
     print(tweet)
 
-    if tweet is not None:
+    while tweet is not None:
         return tweet
 
     else:
