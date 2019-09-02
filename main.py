@@ -10,6 +10,7 @@ import tweeting_script
 '''
 main file of bot. All other modules are called and implemented here
 '''
+sys.setrecursionlimit(10**6)
 
 def main():
 

@@ -20,6 +20,9 @@ def read_query(cursor, random_num):
     if result is not None:
         return result[0]
 
+    else:
+        read_query(cursor, random_num)
+
 #delete the tweet that matches the inputted string
 def delete_query(cursor, tweet):
 
