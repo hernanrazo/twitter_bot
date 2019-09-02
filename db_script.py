@@ -11,11 +11,8 @@ def is_empty(cursor):
 #get tweet that matches the given id
 def read_query(cursor, random_num):
 
-    used_list = []
-
     select_query = cursor.execute('SELECT tweet FROM tweets WHERE id = %s', (random_num,))
     result = cursor.fetchone()
-    used_list.append(result)
 
     if result is not None:
         return result[0]
