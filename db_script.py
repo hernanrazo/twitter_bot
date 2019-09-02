@@ -22,7 +22,6 @@ def read_query(cursor, tweet_id):
 
     select_query = cursor.execute('SELECT tweet FROM tweets WHERE id = %s', (tweet_id,))
     result = cursor.fetchone()
-    print("db_script result: " + result)
     return result[0]
 
 
