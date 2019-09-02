@@ -29,11 +29,11 @@ def get_tweet(cursor):
     tweet = db_script.read_query(cursor, num)
     print(tweet)
 
-    while tweet is not None:
-        return tweet
+    if tweet is None:
+        print('trying again...')
+        get_tweet(tweet)
 
     else:
-        print('trying again...')
         get_tweet(tweet)
 
 
