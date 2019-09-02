@@ -28,14 +28,7 @@ def get_tweet(cursor):
     num = get_random_num()
     tweet = db_script.read_query(cursor, num)
     print(tweet)
-
-    if tweet is None:
-        print('trying again...')
-        get_tweet(tweet)
-
-    else:
-        get_tweet(tweet)
-
+    return tweet
 
 #post to twitter
 def post_tweet(tweet, api):
@@ -48,7 +41,6 @@ def tweet_pipeline(api):
 
     WAIT_TIME_IN_SEC = 21600
     try:
-
         conn = psycopg2.connect(DB_URL, sslmode='require')
         my_cursor = conn.cursor()
         print('Successfully connected to database')
@@ -58,7 +50,7 @@ def tweet_pipeline(api):
 
     empty_check = db_script.is_empty(my_cursor)
 
-    while(empty_check==1):
+    while empty_check==1:
 
         print('passed empty check')
         tweet = get_tweet(my_cursor)
@@ -70,7 +62,6 @@ def tweet_pipeline(api):
         time.sleep(WAIT_TIME_IN_SEC)
 
     else:
-
         print('Ran out of tweets')
         my_cursor.close()
         conn.close()
