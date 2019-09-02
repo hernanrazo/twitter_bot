@@ -13,7 +13,6 @@ def read_query(cursor, random_num):
 
     select_query = cursor.execute('SELECT tweet FROM tweets WHERE id = %s', (random_num,))
     result = cursor.fetchone()
-    print(result[0])
     return result[0]
 
 

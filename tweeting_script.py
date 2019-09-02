@@ -32,6 +32,10 @@ def get_tweet(cursor):
     if tweet is not None:
         return tweet
 
+    else:
+        print('trying again...')
+        get_tweet(tweet)
+
 
 #post to twitter
 def post_tweet(tweet, api):
