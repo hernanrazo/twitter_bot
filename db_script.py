@@ -14,11 +14,12 @@ def read_query(cursor, random_num):
     select_query = cursor.execute('SELECT tweet FROM tweets WHERE id = %s', (random_num,))
     result = cursor.fetchone()
 
-    if result is not None:
+    while result is not None:
         return result[0]
 
-    else:
-        read_query(cursor, random_num)
+#    else:
+ #       print('trying again...')
+  #      read_query(cursor, random_num)
 
 #delete the tweet that matches the inputted string
 def delete_query(cursor, tweet):
