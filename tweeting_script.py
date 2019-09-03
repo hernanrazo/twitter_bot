@@ -12,15 +12,6 @@ import db_script
 contains all functions needed to post a tweet.
 '''
 
-
-#return random munber between 1 and 52
-def get_random_num():
-
-    random_num = random.randrange(1, 52, 1)
-    print('Random number: %s' % (random_num))
-    return random_num
-
-
 #retrieve tweet from the database
 def get_tweet(cursor, selected_id):
 
