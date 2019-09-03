@@ -3,8 +3,7 @@ import sys
 import logging
 import tweepy
 
-logger = logging.getLogger()
-
+'''everything needed to get the twitter api working'''
 def create_api():
 
     CONSUMER_KEY = os.environ['CONSUMER_KEY']
