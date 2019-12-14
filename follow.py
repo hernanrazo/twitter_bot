@@ -14,21 +14,19 @@ follow people that retweeted a post
 '''
 
 #compile list of followers
-def get_followers(api):
+def get_following(api):
 
-    followers_list = []
-    followers = tweepy.Cursor(api.followers, screen_name='WNUTSHANG').items()
+    following_list = []
+    following = tweepy.Cursor(api.followers, screen_name='WNUTSHANG').items()
     for user in followers:
         followers_list.append(user.screen_name)
 
     return followers_list
 
-#get tweets from list of followers
-def get_tweets_from_followers(api, followers):
 
-    for follower in followers:
-        follower_tweets = api.timeline(screen_name=follower, tweet_mode='extended', count=10)
-        return follower_tweets
+def get_followers(api):
+
+
 
 
 def follow_back(followers):
@@ -40,3 +38,11 @@ def follow_back(followers):
             #if relevent, follow back
             #if not, ignore
             #do this once a week???
+
+
+#get tweets from list of followers
+def get_tweets_from_followers(api, followers):
+
+    for follower in followers:
+        follower_tweets = api.user_timeline(screen_name=follower, tweet_mode='extended', count=10)
+        return follower_tweets

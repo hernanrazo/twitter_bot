@@ -5,5 +5,5 @@
 __pycache__/
 .env
 archive/
-twitter_bot/
+twitter_env/
 testing/

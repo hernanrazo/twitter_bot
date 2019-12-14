@@ -5,7 +5,7 @@ import logging
 from threading import Thread
 
 import create_api
-import tweeting_script
+import tweeting
 
 '''
 main file of bot. All other modules are called and implemented here
@@ -17,7 +17,7 @@ def main():
     twitter_api = create_api.create_api()
 
     #start tweeting script in a different thread
-    tweeting_thread = Thread(target = tweeting_script.tweet_pipeline, kwargs={'api':twitter_api})
+    tweeting_thread = Thread(target = tweeting.tweet_pipeline, kwargs={'api':twitter_api})
 
     tweeting_thread.start()
     print('Started tweeting thread...')
