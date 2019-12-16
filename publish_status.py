@@ -44,7 +44,7 @@ def tweet_pipeline(api):
 
     while empty_check==1:
 
-        print('passed empty check')
+        print('Passed empty check')
         tweet_id = db_script.get_id(my_cursor)
         tweet = get_tweet(my_cursor, tweet_id)
         post_tweet(tweet, api)

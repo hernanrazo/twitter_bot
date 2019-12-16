@@ -13,7 +13,7 @@ follow people that commented on a post
 follow people that retweeted a post
 '''
 
-#compile list of followers
+#compile list of currently followed users 
 def get_following(api):
 
     following_list = []
@@ -24,7 +24,6 @@ def get_following(api):
     return followers_list
 
 
-def get_followers(api):
 
 
 
