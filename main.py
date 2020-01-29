@@ -4,7 +4,6 @@ import os
 from threading import Thread
 
 import publish_status
-import db_script
 import get_tweet_topic
 
 '''
