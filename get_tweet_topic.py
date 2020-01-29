@@ -17,6 +17,7 @@ code needed to retrieve the topic from a tweet
 '''
 
 #set stopwords
+nltk.download('stopwords')
 stop_words = nltk.corpus.stopwords.words('english')
 custom = ['?','(', ')', '.', '[', ']','!', '...', '-', '@', '->','https',
         ';', "`", "'", '"',',', ':', '*', '~' , '/', '//', '\\', '&', 'n', ':\\']
