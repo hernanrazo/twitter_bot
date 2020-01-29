@@ -1,17 +1,6 @@
 import tweepy
 import time
 
-'''
-steps:
-    get list of all followers
-    if not already following, follow them back
-
-code that follows people.
-follow new followers
-follow people that favored a tweet
-follow people that commented on a post
-follow people that retweeted a post
-'''
 
 #compile list of currently followed users 
 def get_following(api):
@@ -23,11 +12,7 @@ def get_following(api):
 
     return followers_list
 
-
-
-
-
-
+'''
 def follow_back(followers):
     
     for follower in followers:
@@ -37,11 +22,4 @@ def follow_back(followers):
             #if relevent, follow back
             #if not, ignore
             #do this once a week???
-
-
-#get tweets from list of followers
-def get_tweets_from_followers(api, followers):
-
-    for follower in followers:
-        follower_tweets = api.user_timeline(screen_name=follower, tweet_mode='extended', count=10)
-        return follower_tweets
+'''
