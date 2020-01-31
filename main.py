@@ -1,6 +1,7 @@
 import tweepy
 import sys
 import os
+import pandas as pd
 from threading import Thread
 import psycopg2
 
