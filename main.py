@@ -44,7 +44,7 @@ def main():
     print('Started tweeting thread...')
 
     #start tweet liking thread
-    topic_thread = Thread(target=get_tweet_topic.guess_topic_pipline, kwargs={'api':api, 'cursor': cursor, 'model': lda_model, 'corpus': lda_id2word, 'classifier': lda_huber_classifier})
+    topic_thread = Thread(target=get_tweet_topic.guess_topic_pipeline, kwargs={'api':api, 'cursor': cursor, 'model': lda_model, 'corpus': lda_id2word, 'classifier': lda_huber_classifier})
     topiv_thread.start()
     print('Started topic extraction thread...')
 
