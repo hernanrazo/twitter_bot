@@ -2,6 +2,7 @@ import tweepy
 import sys
 import os
 from threading import Thread
+import psycopg2
 
 import publish_status
 import get_tweet_topic
