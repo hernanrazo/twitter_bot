@@ -46,8 +46,15 @@ def read_raw_statuses(cursor):
 '''
 #create table for tweets from both streams
 def create_temp_tweets_table(cursor):
-    cursor.execute('CREATE TABLE tempTweets(timeSaved TIMESTAMP NOT NULL DEFAULT NOW(), createdAt VARCHAR (50) NOT NULL, sourceStream VARCHAR (20) NOT NULL, statusID VARCHAR (35) NOT NULL, userID VARCHAR (20) PRIMARY KEY, screenName VARCHAR (140) NOT NULL, tweetText VARCHAR (300) NOT NULL, numLikes INTEGER DEFAULT 0, numRetweets INTEGER DEFAULT 0')
-    print('Successfully created tempRawTweets table')
+    cursor.execute('CREATE TABLE tempTweets(timeSaved TIMESTAMP NOT NULL DEFAULT NOW(), 
+            createdAt VARCHAR (50) NOT NULL, 
+            sourceStream VARCHAR (20) NOT NULL, 
+            statusID VARCHAR (35) NOT NULL, 
+            userID VARCHAR (20) PRIMARY KEY, 
+            screenName VARCHAR (140) NOT NULL, 
+            tweetText VARCHAR (300) NOT NULL, 
+            numLikes INTEGER DEFAULT 0, numRetweets INTEGER DEFAULT 0)')
+    print('Successfully created tempTweets table')
 
 
 '''
@@ -73,5 +80,5 @@ def delete_query(cursor, tweet):
 
 #drop a table. Needs specific table's name
 def drop_table(cursor, table_name):
-    cursor.execute('DROP TABLE %s', (table_name))
+    cursor.execute('DROP TABLE %s', (table_name,))
     print('Successfully dropped ', table_name)

@@ -13,30 +13,29 @@ main file of bot. All other modules are called and implemented here
 '''
 
 def main():
-    #credentials for twitter api in heroku
+    #credentials for twitter api and database in heroku
     CONSUMER_KEY = os.environ['CONSUMER_KEY']
     CONSUMER_SECRET = os.environ['CONSUMER_SECRET']
     ACCESS_TOKEN = os.environ['ACCESS_TOKEN']
     ACCESS_TOKEN_SECRET = os.environ['ACCESS_TOKEN_SECRET']
     DB_URL = os.environ['DATABASE_URL']
 
-
     auth = tweepy.OAuthHandler(CONSUMER_KEY, CONSUMER_SECRET)
     auth.set_access_token(ACCESS_TOKEN, ACCESS_TOKEN_SECRET)
     api = tweepy.API(auth, wait_on_rate_limit=True, wait_on_rate_limit_notify=True)
     api.verify_credentials()
     print('Successfully created twitter API')
-    
+
 
     conn = psycopg2.connect(DB_URL, sslmode='require')
     cursor = conn.cursor()
     print('Successfully connected to database')
 
-    #retrieve saved pickles and model from training
+    #retrieve saved pickles and model for topic extraction
     lda_model = pd.read_pickle('saved_pickles_models/lda_model.model')
     lda_id2word = pd.read_pickle('saved_pickles_models/train_id2word.pkl')
     lda_huber_classifier = pd.read_pickle('saved_pickles_models/huber_classifier.pkl')
-    print('Successfully retrieved needed pickels for model...')
+    print('Successfully retrieved needed pickles for topic extraction...')
 
     #start tweeting script in a different thread
     tweeting_thread = Thread(target=publish_status.tweet_pipeline, kwargs={'api':api, 'cursor':cursor})
@@ -47,6 +46,7 @@ def main():
     topic_thread = Thread(target=get_tweet_topic.guess_topic_pipeline, kwargs={'api':api, 'cursor': cursor, 'model': lda_model, 'corpus': lda_id2word, 'classifier': lda_huber_classifier})
     topic_thread.start()
     print('Started topic extraction thread...')
+
 
 if __name__ == "__main__":
 

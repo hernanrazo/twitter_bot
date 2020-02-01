@@ -26,7 +26,7 @@ def post_status(status, api):
 #combine all functions into one pipeline
 def tweet_pipeline(api, cursor):
     WAIT_TIME_IN_SEC = 21600
-    empty_check = db_script.is_empty(cursor)
+    empty_check = db_queries.is_empty(cursor)
 
     while empty_check==1:
         print('Passed empty check')
