@@ -24,8 +24,9 @@ def post_status(status, api):
 
 
 #combine all functions into one pipeline
-def tweet_pipeline(api, cursor):
+def tweet_pipeline(api, conn):
     WAIT_TIME_IN_SEC = 21600
+    cursor = conn.cursor()
     empty_check = db_queries.is_empty(cursor)
 
     while empty_check==1:

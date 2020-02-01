@@ -4,7 +4,7 @@ import os
 import pandas as pd
 from threading import Thread
 import psycopg2
-from psycopg2 import ThreadedConnectionPool
+from psycopg2 import pool
 
 import publish_status
 import get_tweet_topic
@@ -40,14 +40,6 @@ def main():
     api.verify_credentials()
     print('Successfully created twitter API')
 
-    #pass a conn to each thread
-    #go to each thread pipeline and configure a cursor and its proper closing feature
-    #close the pool in main.py
-
-
-
-
-
 
     #create connection pool
     conn_pool = psycopg2.pool.ThreadedConnectionPool(2, 5, user=DB_USER, password=DB_PASSWORD, host=DB_HOST, port=DB_PORT, database=DB_NAME)
@@ -56,19 +48,19 @@ def main():
         #get connection from pool, pass cursor as an argument, start tweeting script thread
         #return connection when done
         tweeting_conn = conn_pool.get_conn()
-        tweeting_cursor = tweeting_conn.cursor()
-        tweeting_thread = Thread(target=publish_status.tweet_pipeline, kwargs={'api':api, 'tweeting_cursor':cursor})
+        tweeting_thread = Thread(target=publish_status.tweet_pipeline, kwargs={'api':api, 'conn':tweeting_conn})
         tweeting_thread.start()
         print('Started tweeting thread...')
         conn_pool.putconn(tweeting_conn)
         print('returned tweeting thread connection...')
 
+    #pass conn to both threads, put cursor creation in the other files
+
 
         #get connection from pool, pass cursor as an argument,start tweet liking thread
         #return connection when done
         topic_conn = conn_pool.get_conn()
-        topic_cursor = topic_conn.cursor()
-        topic_thread = Thread(target=get_tweet_topic.guess_topic_pipeline, kwargs={'api':api, 'cursor': cursor, 'model': lda_model, 'corpus': lda_id2word, 'classifier': lda_huber_classifier})
+        topic_thread = Thread(target=get_tweet_topic.guess_topic_pipeline, kwargs={'api':api, 'conn': topic_conn, 'model': lda_model, 'corpus': lda_id2word, 'classifier': lda_huber_classifier})
         topic_thread.start()
         print('Started topic extraction thread...')
         conn_pool.putconn(topic_conn)

@@ -11,7 +11,6 @@ from sklearn import linear_model
 
 import db_queries
 
-
 '''
 code needed to retrieve the topic from a tweet
 '''
@@ -70,6 +69,7 @@ def guess_topic(raw_status, model, corpus, classifier):
 
 def guess_topic_pipeline(api, cursor, model, corpus, classifier):
     #create temp table first
+    cursor = conn.cursor()
     db_queries.create_temp_tweets_table(cursor)
     conn.commit()
 
@@ -91,7 +91,6 @@ def guess_topic_pipeline(api, cursor, model, corpus, classifier):
         else:
             pass
 
-    #drop temp table
+    #drop temp table and close cursor
     db_queries.drop_table('tempTweets')
-
     cursor.close()
