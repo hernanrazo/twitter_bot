@@ -46,14 +46,7 @@ def read_raw_statuses(cursor):
 '''
 #create table for tweets from both streams
 def create_temp_tweets_table(cursor):
-    cursor.execute('CREATE TABLE tempTweets(timeSaved TIMESTAMP NOT NULL DEFAULT NOW(), 
-            createdAt VARCHAR (50) NOT NULL, 
-            sourceStream VARCHAR (20) NOT NULL, 
-            statusID VARCHAR (35) NOT NULL, 
-            userID VARCHAR (20) PRIMARY KEY, 
-            screenName VARCHAR (140) NOT NULL, 
-            tweetText VARCHAR (300) NOT NULL, 
-            numLikes INTEGER DEFAULT 0, numRetweets INTEGER DEFAULT 0)')
+    cursor.execute('CREATE TABLE tempTweets(timeSaved TIMESTAMP NOT NULL DEFAULT NOW(), createdAt VARCHAR (50) NOT NULL, sourceStream VARCHAR (20) NOT NULL, statusID VARCHAR (35) NOT NULL, userID VARCHAR (20) PRIMARY KEY, screenName VARCHAR (140) NOT NULL, tweetText VARCHAR (300) NOT NULL, numLikes INTEGER DEFAULT 0, numRetweets INTEGER DEFAULT 0)')
     print('Successfully created tempTweets table')
 
 
