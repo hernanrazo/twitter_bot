@@ -27,7 +27,6 @@ def main():
     DB_USER = os.environ['DB_USER']
     DB_PASSWORD = os.environ['DB_PASSWORD']
 
-
     #retrieve saved pickles and model for topic extraction
     lda_model = pd.read_pickle('saved_pickles_models/lda_model.model')
     lda_id2word = pd.read_pickle('saved_pickles_models/train_id2word.pkl')
@@ -39,7 +38,6 @@ def main():
     api = tweepy.API(auth, wait_on_rate_limit=True, wait_on_rate_limit_notify=True)
     api.verify_credentials()
     print('Successfully created twitter API')
-
 
     #create connection pool
     conn_pool = psycopg2.pool.ThreadedConnectionPool(2, 5, user=DB_USER, password=DB_PASSWORD, host=DB_HOST, port=DB_PORT, database=DB_NAME)
@@ -54,9 +52,6 @@ def main():
         conn_pool.putconn(tweeting_conn)
         print('returned tweeting thread connection...')
 
-    #pass conn to both threads, put cursor creation in the other files
-
-
         #get connection from pool, pass cursor as an argument,start tweet liking thread
         #return connection when done
         topic_conn = conn_pool.getconn()
@@ -68,5 +63,4 @@ def main():
 
 
 if __name__ == "__main__":
-
     main()

@@ -10,6 +10,7 @@ from sklearn.preprocessing import StandardScaler
 from sklearn import linear_model
 
 import db_queries
+import status_streams
 
 '''
 code needed to retrieve the topic from a tweet

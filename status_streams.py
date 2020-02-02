@@ -10,7 +10,7 @@ class StreamListener(self, StreamListener):
     def __init__(self):
         super().__inti__()
         self.counter = 0
-        sefl.max = 1200
+        self.max = 1200
 
     #get tweets
     def on_status(self, status):
@@ -32,7 +32,7 @@ class StreamListener(self, StreamListener):
 
     #ignore error where user cannot be found
     def on_error():
-        if status_code ==179:
+        if status_code == 179:
             pass
 
 
