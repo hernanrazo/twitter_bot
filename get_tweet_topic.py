@@ -67,7 +67,7 @@ def guess_topic(raw_status, model, corpus, classifier):
     score = top_topics[[prediction[0]][1]]
     return score
 
-def guess_topic_pipeline(api, cursor, model, corpus, classifier):
+def guess_topic_pipeline(api, conn, model, corpus, classifier):
     #create temp table first
     cursor = conn.cursor()
     db_queries.create_temp_tweets_table(cursor)

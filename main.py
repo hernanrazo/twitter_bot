@@ -47,7 +47,7 @@ def main():
     if conn_pool:
         #get connection from pool, pass cursor as an argument, start tweeting script thread
         #return connection when done
-        tweeting_conn = conn_pool.get_conn()
+        tweeting_conn = conn_pool.getconn()
         tweeting_thread = Thread(target=publish_status.tweet_pipeline, kwargs={'api':api, 'conn':tweeting_conn})
         tweeting_thread.start()
         print('Started tweeting thread...')
@@ -59,7 +59,7 @@ def main():
 
         #get connection from pool, pass cursor as an argument,start tweet liking thread
         #return connection when done
-        topic_conn = conn_pool.get_conn()
+        topic_conn = conn_pool.getconn()
         topic_thread = Thread(target=get_tweet_topic.guess_topic_pipeline, kwargs={'api':api, 'conn': topic_conn, 'model': lda_model, 'corpus': lda_id2word, 'classifier': lda_huber_classifier})
         topic_thread.start()
         print('Started topic extraction thread...')
