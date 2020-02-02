@@ -79,7 +79,7 @@ def streaming_pipeline(api):
                                            f_stream['userID'],
                                            f_stream['screenName'],
                                            f_stream['tweetText'],
-                                           f_stream['numLikes']
+                                           f_stream['numLikes'],
                                            f_stream['numRetweets'])
 
 
