@@ -5,7 +5,7 @@ import db_queries
 import follow
 
 #define class for the stream listener
-class StreamListener(self, StreamListener):
+class StreamListener(tweepy.StreamListener):
 
     def __init__(self):
         super().__inti__()
