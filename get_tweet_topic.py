@@ -109,5 +109,5 @@ def guess_topic_pipeline(api, conn, model, corpus, classifier):
                     pass
 
             #drop temp table and close cursor
-            db_queries.drop_table('tempTweets')
+            db_queries.drop_table(tempTweets)
             cursor.close()
