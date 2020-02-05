@@ -5,11 +5,22 @@ import random
 all functions relating to direct db interaction
 '''
 
+'''
+===============================================================================
+========================check if tables/rows exist=============================
+===============================================================================
+'''
 #check if table is empty. return 1 if yes, 0 if not
-def is_empty(cursor):
-    cursor.execute('SELECT SIGN(COUNT(*)) FROM tweets')
+def empty_check(cursor, table_name):
+    cursor.execute('SELECT SIGN(COUNT(*)) FROM %s', (table_name,))
     result = cursor.fetchone()
     return int(result[0])
+
+#check if table exists. return TRUE if yes, False if no
+def exist_check(cursor, table_name):
+    cursor.execute('SELECT EXISTS(SELECT * FROM information_schema.tables WHERE table_name = %s)' (table_name,))
+    result = cur.fetchone()[0]
+    return result
 
 
 '''

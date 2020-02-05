@@ -11,7 +11,7 @@ from sklearn import linear_model
 
 import db_queries
 import status_streams
-
+import time_guess 
 '''
 code needed to retrieve the topic from a tweet
 '''
@@ -22,6 +22,7 @@ stop_words = nltk.corpus.stopwords.words('english')
 custom = ['?','(', ')', '.', '[', ']','!', '...', '-', '@', '->','https',
         ';', "`", "'", '"',',', ':', '*', '~' , '/', '//', '\\', '&', 'n', ':\\']
 stop_words.extend(custom)
+
 
 #prepare incoming tweets by removing twitter mentions, links, and emojis
 #set all letters to lowercase
@@ -69,29 +70,44 @@ def guess_topic(raw_status, model, corpus, classifier):
     return score
 
 def guess_topic_pipeline(api, conn, model, corpus, classifier):
-    #create temp table first
-    cursor = conn.cursor()
-    db_queries.create_temp_tweets_table(cursor)
-    conn.commit()
 
-    #use pipeline to grab tweets off twitter
-    status_streams.streaming_pipeline(api)
 
-    #grab tweets from table
-    statuses = db_queries.read_raw_statuses(cursor)
+#put this in an infinite loop
+#while inifinite loop goes, keep guessing the time, if you get it right,
+#run the post shit, if else, keep guessing
 
-    #return a cursor with two columns, one for status id and one for status text
-    #iterate through each row, clean the text, classify, and like the tweet using its id
-    for row in statuses:
-        current_status = row[1]
-        score = guess_topic(current_status, model, corpus, classifier)
-        if not current_status.favorited():
-            if score > 0.5:
-                api.create_favorite(row[0])
-                print('Just liked: ', current_status)
-        else:
-            pass
+    while 1==1:
+        time_check = time_guess()
+        if time_check == True:
+            cursor = conn.cursor()
 
-    #drop temp table and close cursor
-    db_queries.drop_table('tempTweets')
-    cursor.close()
+            #check if table exists
+            table_check = db_queries.is_empty(cursor, 'tempTweets')
+
+            if table_check == True:
+                pass
+
+            else:
+                db_queries.create_temp_tweets_table(cursor)
+                conn.commit()
+
+            #use pipeline to grab tweets off twitter
+            status_streams.streaming_pipeline(api)
+
+            #grab tweets from table
+            statuses = db_queries.read_raw_statuses(cursor)
+
+            #iterate through each row, cleantext, classify, and like the tweet using its id
+            for row in statuses:
+                current_status = row[1]
+                score = guess_topic(current_status, model, corpus, classifier)
+                if not current_status.favorited():
+                    if score > 0.5:
+                        api.create_favorite(row[0])
+                        print('Just liked: ', current_status)
+                else:
+                    pass
+
+            #drop temp table and close cursor
+            db_queries.drop_table('tempTweets')
+            cursor.close()
