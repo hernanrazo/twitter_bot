@@ -77,7 +77,7 @@ def guess_topic_pipeline(api, conn, model, corpus, classifier):
         #check if table exists
         table_check = db_queries.exist_check(cursor, 'tempTweets')
 
-        if table_check == True:
+        if table_check == 1:
             pass
 
         else:

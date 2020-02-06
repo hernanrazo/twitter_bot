@@ -17,7 +17,7 @@ def time_compare():
     guess_time = get_time()
     current_time = get_current_time()
 
-    if guess_time == calc_time:
+    if guess_time == current_time:
         return True
     else:
         return False

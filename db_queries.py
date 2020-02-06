@@ -10,17 +10,17 @@ all functions relating to direct db interaction
 ========================check if tables/rows exist=============================
 ===============================================================================
 '''
-#check if table is empty. return 1 if yes, 0 if not
-def empty_check(cursor, table_name):
-    cursor.execute('SELECT SIGN(COUNT(*)) FROM %s', (table_name,))
+#check if tweets table is empty. return 1 if yes, 0 if not
+def empty_check_tweets(cursor):
+    cursor.execute('SELECT SIGN(COUNT(*)) FROM tweets')
     result = cursor.fetchone()
     return int(result[0])
 
-#check if table exists. return TRUE if yes, False if no
-def exist_check(cursor, table_name):
-    cursor.execute('SELECT EXISTS(SELECT * FROM information_schema.tables WHERE table_name = %s)' (table_name,))
-    result = cur.fetchone()[0]
-    return result
+#check if tempTweets table exists. return 1 if yes, 0 if no
+def exist_check_tempTweets(cursor):
+    cursor.execute('SELECT EXISTS(SELECT * FROM tempTweets')
+    result = cur.fetchone()
+    return int(result[0])
 
 
 '''
