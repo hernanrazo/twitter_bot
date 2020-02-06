@@ -70,44 +70,38 @@ def guess_topic(raw_status, model, corpus, classifier):
     return score
 
 def guess_topic_pipeline(api, conn, model, corpus, classifier):
+    time_check = time_guess.time_compare()
+    while time_check == True:
+        cursor = conn.cursor()
 
+        #check if table exists
+        table_check = db_queries.exist_check(cursor, 'tempTweets')
 
-#put this in an infinite loop
-#while inifinite loop goes, keep guessing the time, if you get it right,
-#run the post shit, if else, keep guessing
+        if table_check == True:
+            pass
 
-    while 1==1:
-        time_check = time_guess()
-        if time_check == True:
-            cursor = conn.cursor()
+        else:
+            db_queries.create_temp_tweets_table(cursor)
+            conn.commit()
+            print('Created tempTweetsTable...')
 
-            #check if table exists
-            table_check = db_queries.is_empty(cursor, 'tempTweets')
+        #use pipeline to grab tweets off twitter
+        status_streams.streaming_pipeline(api)
 
-            if table_check == True:
+        #grab tweets from table
+        statuses = db_queries.read_raw_statuses(cursor)
+
+        #iterate through each row, cleantext, classify, and like the tweet using its id
+        for row in statuses:
+            current_status = row[1]
+            score = guess_topic(current_status, model, corpus, classifier)
+            if not current_status.favorited():
+                if score > 0.5:
+                    api.create_favorite(row[0])
+                    print('Just liked: ', current_status)
+            else:
                 pass
 
-            else:
-                db_queries.create_temp_tweets_table(cursor)
-                conn.commit()
-
-            #use pipeline to grab tweets off twitter
-            status_streams.streaming_pipeline(api)
-
-            #grab tweets from table
-            statuses = db_queries.read_raw_statuses(cursor)
-
-            #iterate through each row, cleantext, classify, and like the tweet using its id
-            for row in statuses:
-                current_status = row[1]
-                score = guess_topic(current_status, model, corpus, classifier)
-                if not current_status.favorited():
-                    if score > 0.5:
-                        api.create_favorite(row[0])
-                        print('Just liked: ', current_status)
-                else:
-                    pass
-
-            #drop temp table and close cursor
-            db_queries.drop_table(tempTweets)
-            cursor.close()
+        #drop temp table and close cursor
+        db_queries.drop_table(tempTweets)
+        cursor.close()

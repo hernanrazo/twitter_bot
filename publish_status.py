@@ -27,7 +27,7 @@ def post_status(status, api):
 def tweet_pipeline(api, conn):
     WAIT_TIME_IN_SEC = 21600
     cursor = conn.cursor()
-    empty_check = db_queries.empty_check(cursor, tweets)
+    empty_check = db_queries.empty_check(cursor, 'tweets')
 
     while empty_check==1:
         print('Passed empty check')
