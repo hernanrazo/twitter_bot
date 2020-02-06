@@ -42,4 +42,3 @@ def tweet_pipeline(api, conn):
     else:
         print('Ran out of tweets')
         cursor.close()
-        pass

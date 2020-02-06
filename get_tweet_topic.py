@@ -70,6 +70,7 @@ def guess_topic(raw_status, model, corpus, classifier):
     return score
 
 def guess_topic_pipeline(api, conn, model, corpus, classifier):
+    print('Starting topic extraction procedure...')
     time_check = time_guess.time_compare()
     while time_check == True:
         cursor = conn.cursor()
