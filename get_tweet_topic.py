@@ -72,8 +72,10 @@ def guess_topic(raw_status, model, corpus, classifier):
 def guess_topic_pipeline(api, conn, model, corpus, classifier):
     print('Starting topic extraction procedure...')
     time_check = time_guess.time_compare()
+    print('got time check: ', time_check)
     while time_check == True:
         cursor = conn.cursor()
+        print('created cursor...')
 
         #check if table exists
         table_check = db_queries.exist_check(cursor, 'tempTweets')
