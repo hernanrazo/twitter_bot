@@ -78,20 +78,23 @@ def guess_topic_pipeline(api, conn, model, corpus, classifier):
         table_check = db_queries.exist_check(cursor, 'tempTweets')
 
         if table_check == 1:
-            pass
+            print('tempTweets table already exists. Moving on...')
+            break
 
         else:
             db_queries.create_temp_tweets_table(cursor)
             conn.commit()
-            print('Created tempTweetsTable...')
+            print('Created tempTweets table. Moving on...')
 
         #use pipeline to grab tweets off twitter
         status_streams.streaming_pipeline(api)
+        print('Retrieving statuses from streams...')
 
         #grab tweets from table
         statuses = db_queries.read_raw_statuses(cursor)
 
         #iterate through each row, cleantext, classify, and like the tweet using its id
+        print('iterating db for streams...')
         for row in statuses:
             current_status = row[1]
             score = guess_topic(current_status, model, corpus, classifier)
@@ -103,5 +106,6 @@ def guess_topic_pipeline(api, conn, model, corpus, classifier):
                 pass
 
         #drop temp table and close cursor
+        print('Dropping the tempTweets table...')
         db_queries.drop_table(tempTweets)
         cursor.close()

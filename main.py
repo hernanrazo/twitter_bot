@@ -31,13 +31,13 @@ def main():
     lda_model = pd.read_pickle('saved_pickles_models/lda_model.model')
     lda_id2word = pd.read_pickle('saved_pickles_models/train_id2word.pkl')
     lda_huber_classifier = pd.read_pickle('saved_pickles_models/huber_classifier.pkl')
-    print('Successfully retrieved needed pickles for topic extraction...')
+    print('Successfully retrieved needed files for topic extraction...')
 
     auth = tweepy.OAuthHandler(CONSUMER_KEY, CONSUMER_SECRET)
     auth.set_access_token(ACCESS_TOKEN, ACCESS_TOKEN_SECRET)
     api = tweepy.API(auth, wait_on_rate_limit=True, wait_on_rate_limit_notify=True)
     api.verify_credentials()
-    print('Successfully created twitter API')
+    print('Successfully created twitter API...')
 
     #create connection pool
     conn_pool = psycopg2.pool.ThreadedConnectionPool(2, 5, user=DB_USER, password=DB_PASSWORD, host=DB_HOST, port=DB_PORT, database=DB_NAME)
