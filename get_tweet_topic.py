@@ -76,7 +76,7 @@ def guess_topic_pipeline(api, conn, model, corpus, classifier):
         print('created cursor...')
 
         #check if table exists
-        table_check = db_queries.exist_check(cursor, 'tempTweets')
+        table_check = db_queries.exist_check_tempTweets(cursor, 'tempTweets')
 
         #check if the tempTweets table already exists
         #ideally, this should only happen if the program is 
