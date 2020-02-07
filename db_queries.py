@@ -18,7 +18,7 @@ def empty_check_tweets(cursor):
 
 #check if tempTweets table exists. return 1 if yes, 0 if no
 def exist_check_tempTweets(cursor):
-    cursor.execute('SELECT EXISTS(SELECT * FROM tempTweets')
+    cursor.execute('SELECT EXISTS(SELECT * FROM tempTweets)')
     result = cur.fetchone()
     return int(result[0])
 
