@@ -1,4 +1,5 @@
 import re
+import time
 import pickle
 import numpy as np
 import tweepy
@@ -11,7 +12,6 @@ from sklearn import linear_model
 
 import db_queries
 import status_streams
-import time_guess 
 '''
 code needed to retrieve the topic from a tweet
 '''
@@ -70,16 +70,18 @@ def guess_topic(raw_status, model, corpus, classifier):
     return score
 
 def guess_topic_pipeline(api, conn, model, corpus, classifier):
-    print('Starting topic extraction procedure...')
-    time_check = time_guess.time_compare()
-    print('got time check: ', time_check)
-    while time_check == True:
+
+    while True:
         cursor = conn.cursor()
         print('created cursor...')
 
         #check if table exists
         table_check = db_queries.exist_check(cursor, 'tempTweets')
 
+        #check if the tempTweets table already exists
+        #ideally, this should only happen if the program is 
+        #ubruptly terminate before it can delete the table and 
+        #restarts with the old table still existing
         if table_check == 1:
             print('tempTweets table already exists. Moving on...')
             break
@@ -87,11 +89,12 @@ def guess_topic_pipeline(api, conn, model, corpus, classifier):
         else:
             db_queries.create_temp_tweets_table(cursor)
             conn.commit()
-            print('Created tempTweets table. Moving on...')
+            print('Created tempTweets table...')
 
         #use pipeline to grab tweets off twitter
-        status_streams.streaming_pipeline(api)
         print('Retrieving statuses from streams...')
+        status_streams.streaming_pipeline(api)
+        print('Done retrieving...')
 
         #grab tweets from table
         statuses = db_queries.read_raw_statuses(cursor)
@@ -112,3 +115,4 @@ def guess_topic_pipeline(api, conn, model, corpus, classifier):
         print('Dropping the tempTweets table...')
         db_queries.drop_table(tempTweets)
         cursor.close()
+        time.sleep(21600) #there has to be a better way to do this
