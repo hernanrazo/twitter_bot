@@ -73,7 +73,7 @@ def guess_topic_pipeline(api, conn, model, corpus, classifier):
 
     while True:
         cursor = conn.cursor()
-        print('created cursor...')
+        print('Created cursor...')
 
         #check if table exists
         table_check = db_queries.exist_check_tempTweets(cursor)
@@ -100,7 +100,7 @@ def guess_topic_pipeline(api, conn, model, corpus, classifier):
         statuses = db_queries.read_raw_statuses(cursor)
 
         #iterate through each row, cleantext, classify, and like the tweet using its id
-        print('iterating db for streams...')
+        print('Iterating db for streams...')
         for row in statuses:
             current_status = row[1]
             score = guess_topic(current_status, model, corpus, classifier)
