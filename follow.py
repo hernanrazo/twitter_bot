@@ -8,7 +8,7 @@ def get_following(api):
     following_list = []
     following = tweepy.Cursor(api.followers, screen_name='WNUTSHANG').items()
     for user in following:
-        followers_list.append(user.screen_name)
+        following_list.append(user.screen_name)
 
     return followers_list
 
