@@ -73,23 +73,9 @@ def guess_topic_pipeline(api, conn, model, corpus, classifier):
 
     while True:
         cursor = conn.cursor()
-        print('Created cursor...')
-
-        #check if table exists
-        table_check = db_queries.exist_check_tempTweets(cursor)
-
-        #check if the tempTweets table already exists
-        #ideally, this should only happen if the program is 
-        #ubruptly terminate before it can delete the table and 
-        #restarts with the old table still existing
-        if table_check == 1:
-            print('tempTweets table already exists. Moving on...')
-            break
-
-        else:
-            db_queries.create_temp_tweets_table(cursor)
-            conn.commit()
-            print('Created tempTweets table...')
+        db_queries.create_temp_tweets_table(cursor)
+        conn.commit()
+        print('Created tempTweets table...')
 
         #use pipeline to grab tweets off twitter
         print('Retrieving statuses from streams...')
