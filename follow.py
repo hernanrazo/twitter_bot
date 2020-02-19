@@ -10,7 +10,7 @@ def get_following(api):
     for user in following:
         following_list.append(user.screen_name)
 
-    return followers_list
+    return following_list
 
 '''
 def follow_back(followers):
