@@ -73,12 +73,13 @@ def streaming_pipeline(api):
         f_stream = following_stream(api, user)
 
         #insert info into db
-        db_queries.insert_raw_tweets_table(f_stream['createdAt'], f_stream['sourceStream'], f_stream['statusID'], f_stream['userID'], f_stream['screenName'], f_stream['tweetText'], f_stream['numLikes'], f_stream['numRetweets'])
+        for item in f_stream:
+            db_queries.insert_raw_tweets_table(item['createdAt'], item['sourceStream'], item['statusID'], item['userID'], item['screenName'], item['tweetText'], item['numLikes'], item['numRetweets'])
 
 
     #start streams for tweets from general population
     g_stream = general_stream(api)
 
     #insert info into db
-    for entry in g_stream:
-        db_queries.insert_raw_tweets_table(g_stream['createdAt'], g_stream['sourceStream'], g_stream['statusID'], g_stream['userID'], g_stream['screenName'], g_stream['tweetText'], g_stream['numLikes'], g_stream['numRetweets'])
+    for item in g_stream:
+        db_queries.insert_raw_tweets_table(item['createdAt'], item['sourceStream'], item['statusID'], item['userID'], item['screenName'], item['tweetText'], item['numLikes'], item['numRetweets'])
