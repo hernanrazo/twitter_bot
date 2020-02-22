@@ -9,7 +9,7 @@ class stream_listener_class(tweepy.StreamListener):
 
     def __init__(self):
         #set counter to only get 1200 tweets
-        super().__inti__()
+        super().__init__()
         self.counter = 0
         self.max = 1200
 
