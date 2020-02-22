@@ -36,6 +36,8 @@ class stream_listener_class(tweepy.StreamListener):
     def on_error():
         if status_code == 179:
             pass
+        elif status_code == 420:
+            return False
 
 
 #get tweets from list of followers
@@ -59,12 +61,14 @@ def following_stream(api, cursor, user_name):
         if e.api_code == 179:
             print('Error trying to access tweets from user. Skipping to next user...')
             pass
+        elif e.api_code == 420:
+            return False
 
 
 #set streaming class and filter for the general stream
 def general_stream(api, cursor):
     stream_listener = stream_listener_class()
-    stream = tweepy.Stream(api, stream_listener)
+    stream = tweepy.Stream(auth=api, listener=stream_listener)
     stream.filter(languages=['en'], track=['the'])
 
 
