@@ -5,7 +5,7 @@ import db_queries
 import follow
 
 #define class for the stream listener
-class StreamListener(tweepy.StreamListener):
+class stream_listener_class(tweepy.StreamListener):
 
     def __init__(self):
         #set counter to only get 1200 tweets
@@ -63,8 +63,8 @@ def following_stream(api, cursor, user_name):
 
 #set streaming class and filter for the general stream
 def general_stream(api, cursor):
-    StreamListener = StreamListener()
-    stream = tweepy.Stream(api, StreamListener)
+    stream_listener = stream_listener_class()
+    stream = tweepy.Stream(api, stream_listener)
     stream.filter(languages=['en'], track=['the'])
 
 
