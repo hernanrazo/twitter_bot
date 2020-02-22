@@ -20,7 +20,6 @@ def main():
     ACCESS_TOKEN = os.environ['ACCESS_TOKEN']
     ACCESS_TOKEN_SECRET = os.environ['ACCESS_TOKEN_SECRET']
 
-    DB_URL = os.environ['DATABASE_URL']
     DB_NAME = os.environ['DB_NAME']
     DB_HOST = os.environ['DB_HOST']
     DB_PORT = os.environ['DB_PORT']
@@ -44,20 +43,21 @@ def main():
 
     if conn_pool:
         #get connection from pool, pass cursor as an argument, start tweeting script thread
-        #return connection when done
         tweeting_conn = conn_pool.getconn()
         tweeting_thread = Thread(target=publish_status.tweet_pipeline, kwargs={'api':api, 'conn':tweeting_conn})
         tweeting_thread.start()
         print('Started tweeting thread...')
+        tweeting_conn = conn_pool.getconn()
+        #return connection when done
         conn_pool.putconn(tweeting_conn)
         print('returned tweeting thread connection...')
 
         #get connection from pool, pass cursor as an argument,start tweet liking thread
-        #return connection when done
         topic_conn = conn_pool.getconn()
         topic_thread = Thread(target=get_tweet_topic.guess_topic_pipeline, kwargs={'api':api, 'conn': topic_conn, 'model': lda_model, 'corpus': lda_id2word, 'classifier': lda_huber_classifier})
         topic_thread.start()
         print('Started topic extraction thread...')
+        #return connection when done
         conn_pool.putconn(topic_conn)
         print('returned tweeting thread connection...')
 
