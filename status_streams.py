@@ -28,8 +28,8 @@ class StreamListener(tweepy.StreamListener):
             insert_raw_tweets_table(cursor, status, source_stream, status_id, user_id, screen_name, tweet_text, num_likes, num_retweets)
 
             self.counter +=1
-        if self.counter == self.max:
-            return False
+            if self.counter == self.max:
+                return False
 
 
     #ignore error where user cannot be found
