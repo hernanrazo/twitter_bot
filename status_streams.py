@@ -8,14 +8,13 @@ import follow
 class StreamListener(tweepy.StreamListener):
 
     def __init__(self):
-        #only get 1200 tweets
+        #set counter to only get 1200 tweets
         super().__inti__()
         self.counter = 0
         self.max = 1200
 
     #get tweets
     def on_status(self, status):
-
             status = status.created_at.strftime('%y-%m-%d %H:%M')
             source_stream = 'general stream'
             status_id = status.id_str
@@ -24,10 +23,11 @@ class StreamListener(tweepy.StreamListener):
             tweet_text = status.full_text
             num_likes = status.favorite_count
             num_retweets = status.retweet_count
+
             #insert everything into db
             insert_raw_tweets_table(cursor, status, source_stream, status_id, user_id, screen_name, tweet_text, num_likes, num_retweets)
 
-        self.counter +=1
+            self.counter +=1
         if self.counter == self.max:
             return False
 
