@@ -17,7 +17,7 @@ class stream_listener_class(tweepy.StreamListener):
     def on_status(self, status):
             status = status.created_at.strftime('%y-%m-%d %H:%M')
             source_stream = 'general stream'
-            status_id = status.id_str
+            status_id = status.id
             user_id = status.user_name.id_str
             screen_name =  user_name
             tweet_text = status.full_text
