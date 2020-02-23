@@ -15,9 +15,9 @@ class stream_listener_class(tweepy.StreamListener):
 
     #get tweets
     def on_status(self, status):
-            status = status.created_at.strftime('%y-%m-%d %H:%M')
+            created_at = status.created_at.strftime('%y-%m-%d %H:%M')
             source_stream = 'general stream'
-            status_id = status.id
+            status_id = status.id_str
             user_id = status.user_name.id_str
             screen_name =  user_name
             tweet_text = status.full_text
@@ -25,7 +25,7 @@ class stream_listener_class(tweepy.StreamListener):
             num_retweets = status.retweet_count
 
             #insert everything into db
-            insert_raw_tweets_table(cursor, status, source_stream, status_id, user_id, screen_name, tweet_text, num_likes, num_retweets)
+            insert_raw_tweets_table(cursor, created_at, source_stream, status_id, user_id, screen_name, tweet_text, num_likes, num_retweets)
 
             self.counter +=1
             if self.counter == self.max:
@@ -45,7 +45,7 @@ def following_stream(api, cursor, user_name):
     try:
         for status in tweepy.Cursor(api.user_timeline, tweet_mode='extended', include_rts=False, screen_name=user_name).items(1):
 
-            status = status.created_at.strftime('%y-%m-%d %H:%M')
+            created_at = status.created_at.strftime('%y-%m-%d %H:%M')
             source_stream = 'following stream'
             status_id = status.id_str
             user_id = status.user_name.id_str
@@ -54,7 +54,7 @@ def following_stream(api, cursor, user_name):
             num_likes = status.favorite_count
             num_retweets = status.retweet_count
 
-            insert_raw_tweets_table(cursor, status, source_stream, status_id, user_id, screen_name, tweet_text, num_likes, num_retweets)
+            insert_raw_tweets_table(cursor, created_at, source_stream, status_id, user_id, screen_name, tweet_text, num_likes, num_retweets)
 
     #ignore error where user cannot be found
     except tweepy.TweepError as e:
