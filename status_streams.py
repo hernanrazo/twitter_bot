@@ -5,7 +5,7 @@ import db_queries
 import follow
 
 #define class for the stream listener
-class stream_listener_class(cursor, tweepy.StreamListener):
+class stream_listener_class(tweepy.StreamListener):
 
     def __init__(self):
         #set counter to only get 1200 tweets
