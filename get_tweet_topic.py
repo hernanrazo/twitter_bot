@@ -85,7 +85,7 @@ def guess_topic_pipeline(api, conn, model, corpus, classifier):
         #grab tweets from table
         statuses = db_queries.read_raw_statuses(cursor)
 
-        #iterate through each row, cleantext, classify, and like the tweet using its id
+        #iterate through each row, clean text, classify, and like the tweet using its id
         print('Iterating db for streams...')
         for row in statuses:
             current_status = row[1]
