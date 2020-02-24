@@ -39,7 +39,7 @@ class stream_listener_class(tweepy.StreamListener):
     def on_error():
         if status_code == 179:
             pass
-        elif status_code = 420:
+        else status_code = 420:
             return False
 
 
