@@ -14,7 +14,7 @@ class stream_listener_class(tweepy.StreamListener):
         self.max = 1200
 
     #get tweets
-    def on_status(self, cursor, status):
+    def on_status(self, status):
             created_at = status.created_at.strftime('%y-%m-%d %H:%M')
             source_stream = 'general stream'
             status_id = status.id_str
