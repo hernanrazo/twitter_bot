@@ -75,7 +75,6 @@ def guess_topic_pipeline(api, conn, model, corpus, classifier):
         cursor = conn.cursor()
         db_queries.create_temp_tweets_table(cursor)
         conn.commit()
-        print('Created tempTweets table...')
 
         #use pipeline to grab tweets off twitter
         print('Retrieving statuses from streams...')
