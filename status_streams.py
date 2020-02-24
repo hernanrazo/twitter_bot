@@ -15,28 +15,31 @@ class stream_listener_class(tweepy.StreamListener):
 
     #get tweets
     def on_status(self, status):
-            created_at = status.created_at.strftime('%y-%m-%d %H:%M')
-            source_stream = 'general stream'
-            status_id = status.id_str
-            user_id = status.user.id_str
-            screen_name =  status.user.name
-            tweet_text = status.text
-            num_likes = status.favorite_count
-            num_retweets = status.retweet_count
+        if not status.retweeted:
+                created_at = status.created_at.strftime('%y-%m-%d %H:%M')
+                source_stream = 'general stream'
+                status_id = status.id_str
+                user_id = status.user.id_str
+                screen_name =  status.user.name
+                tweet_text = status.text
+                num_likes = status.favorite_count
+                num_retweets = status.retweet_count
 
-            #insert everything into db
-            db_queries.insert_raw_tweets_table(cursor, created_at, source_stream, status_id, user_id, screen_name, tweet_text, num_likes, num_retweets)
+                #insert everything into db
+                cursor = conn.cursor()
+                db_queries.insert_raw_tweets_table(cursor, created_at, source_stream, status_id, user_id, screen_name, tweet_text, num_likes, num_retweets)
 
-            self.counter +=1
-            if self.counter == self.max:
-                return False
+                self.counter +=1
+                if self.counter == self.max:
+                    cursor.close()
+                    return False
 
 
     #ignore error where user cannot be found
     def on_error():
         if status_code == 179:
             pass
-        elif status_code == 420:
+        elif status_code = 420:
             return False
 
 
@@ -66,14 +69,15 @@ def following_stream(api, cursor, user_name):
 
 
 #set streaming class and filter for the general stream
-def general_stream(api, cursor):
+def general_stream(api, conn):
     stream_listener = stream_listener_class()
     stream = tweepy.Stream(auth=api.auth, listener=stream_listener)
     stream.filter(languages=['en'], track=['the'])
 
 
 #set function that controls both streams
-def streaming_pipeline(api, cursor):
+def streaming_pipeline(api, conn):
+    cursor = conn.cursor()
     #get list of all users that are currently followed
     following_list = follow.get_following(api)
 
@@ -82,4 +86,5 @@ def streaming_pipeline(api, cursor):
         f_stream = following_stream(api, cursor, user)
 
     #start streams for tweets from general population
-    g_stream = general_stream(api, cursor)
+    g_stream = general_stream(api, conn)
+    cursor.close()
