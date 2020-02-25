@@ -78,7 +78,7 @@ def guess_topic_pipeline(api, conn, model, corpus, classifier):
 
         #use pipeline to grab tweets off twitter
         print('Retrieving statuses from streams...')
-        status_streams.streaming_pipeline(api, conn)
+        status_streams.streaming_pipeline(api, cursor)
         print('Done retrieving...')
 
         #grab tweets from table
