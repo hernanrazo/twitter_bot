@@ -70,9 +70,9 @@ def streaming_pipeline(api, cursor):
 
             db_queries.insert_raw_tweets_table(cursor, created_at, source_stream, status_id, user_id, screen_name, tweet_text, num_likes, num_retweets)
 
-                self.counter +=1
-                if self.counter == self.max:
-                    return False
+            self.counter +=1
+            if self.counter == self.max:
+                return False
 
         #ignore error where user cannot be found
         def on_error():
