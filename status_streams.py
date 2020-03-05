@@ -7,12 +7,12 @@ import follow
 #define class for the stream listener
 class MyStreamListener(tweepy.StreamListener):
 
-    def __init__(self, cursor):
+    def __init__(self):
+        super().__init__()
         self.cursor = cursor
         #set counter to only get 1200 tweets
         self.counter = 0
         self.max = 1200
-        super(MyStreamListener, self).__init__()
 
     #get tweets
     def on_status(self, status):
