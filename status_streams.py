@@ -5,7 +5,7 @@ import db_queries
 import follow
 
 #define class for the stream listener
-class MyStreamListener(tweepy.StreamListener):
+class MyStreamListener(tweepy.StreamListener, cursor):
 
     def __init__(self, cursor):
         super().__init__()
@@ -95,7 +95,6 @@ def streaming_pipeline(api, cursor):
     following_list = follow.get_following(api)
     for user in following_list:
         f_stream = following_stream(api, cursor, user)
-
 
     #start streams for tweets from general population
     general_stream(api, cursor)
