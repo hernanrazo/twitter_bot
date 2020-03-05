@@ -48,7 +48,7 @@ class MyStreamListener(tweepy.StreamListener):
             pass
 
 #get tweets from list of followers
-def following_stream(api, cursor, user_name)
+def following_stream(api, cursor, user_name):
     try:
         for status in tweepy.Cursor(api.user_timeline, tweet_mode='extended', include_rts=False, screen_name=user_name).items(1):
             #ignore retweets
