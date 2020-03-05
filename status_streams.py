@@ -26,16 +26,16 @@ class MyStreamListener(tweepy.StreamListener):
                     'num_likes': status.favorite_count,
                     'num_retweets': status.retweet_count}
 
-        created_at = status_dict['created_at']
-        source_stream = status_dict['source_stream']
-        status_id = status_dict['status_id']
-        user_id = status_dict['user_id']
-        screen_name = status_dict['screen_name']
-        tweet_text = status_dict['tweet_text']
-        num_likes = status_dict['num_likes']
-        num_retweets = status_dict['num_retweers']
+            created_at = status_dict['created_at']
+            source_stream = status_dict['source_stream']
+            status_id = status_dict['status_id']
+            user_id = status_dict['user_id']
+            screen_name = status_dict['screen_name']
+            tweet_text = status_dict['tweet_text']
+            num_likes = status_dict['num_likes']
+            num_retweets = status_dict['num_retweers']
 
-        db_queries.insert_raw_tweets_table(cursor, created_at, source_stream, status_id, user_id, screen_name, tweet_text, num_likes, num_retweets)
+            db_queries.insert_raw_tweets_table(cursor, created_at, source_stream, status_id, user_id, screen_name, tweet_text, num_likes, num_retweets)
 
         self.counter +=1
         if self.counter == self.max:
@@ -46,8 +46,9 @@ class MyStreamListener(tweepy.StreamListener):
         if status_code == 179:
             print('Error trying to access tweets from user. Skipping to next user...')
             pass
+
 #get tweets from list of followers
-def following_stream(api, user_name):
+def following_stream(api, cursor, user_name)
     try:
         for status in tweepy.Cursor(api.user_timeline, tweet_mode='extended', include_rts=False, screen_name=user_name).items(1):
             #ignore retweets
@@ -60,7 +61,17 @@ def following_stream(api, user_name):
                                'tweet_text':status.full_text,
                                'num_likes':status.favorite_count,
                                'num_retweets':status.retweet_count}
-                return status_dict
+
+                created_at = status_dict['created_at']
+                source_stream = status_dict['source_stream']
+                status_id = status_dict['status_id']
+                user_id = status_dict['user_id']
+                screen_name = status_dict['screen_name']
+                tweet_text = status_dict['tweet_text']
+                num_likes = status_dict['num_likes']
+                num_retweets = status_dict['num_retweets']
+
+                db_queries.insert_raw_tweets_table(cursor, created_at, source_stream, status_id, user_id, screen_name, tweet_text, num_likes, num_retweets)
 
 
     #ignore error where user cannot be found
@@ -80,26 +91,13 @@ def general_stream(api, cursor):
 #set function that controls both streams
 def streaming_pipeline(api, cursor):
     #get list of all users that are currently followed
-    following_list = follow.get_following(api)
-
     #iterate through the following_list and grab the single latest tweet
+    following_list = follow.get_following(api)
     for user in following_list:
-        f_stream = following_stream(api, user)
+        f_stream = following_stream(api, cursor, user)
 
-        created_at = f_stream['created_at']
-        source_stream = f_stream['source_stream']
-        status_id = f_stream['status_id']
-        user_id = f_stream['user_id']
-        screen_name = f_stream['screen_name']
-        tweet_text = f_stream['tweet_text']
-        num_likes = f_stream['num_likes']
-        num_retweets = f_stream['num_retweets']
-
-        db_queries.insert_raw_tweets_table(cursor, created_at, source_stream, status_id, user_id, screen_name, tweet_text, num_likes, num_retweets)
 
     #start streams for tweets from general population
-    myStreamListener = MyStreamListener()
-    stream = tweepy.Stream(auth=api.auth, listener=myStreamListener(cursor))
-    stream.filter(languages=['en'], track=['the'])
-    
+    general_stream(api, cursor)
+
     cursor.close()
