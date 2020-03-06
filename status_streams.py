@@ -15,7 +15,7 @@ class MyStreamListener(tweepy.StreamListener):
         self.max = 1200
 
     #get tweets
-    def on_status(self, status, cursor):
+    def on_status(self, status):
         if not status.retweeted:
             status_dict = {'created_at': status.created_at.strftime('%y-%m-&d %H:%M'),
                     'source_stream': 'general stream',
@@ -84,7 +84,7 @@ def following_stream(api, cursor, user_name):
 #set streaming class and filter for the general stream
 def general_stream(api, cursor):
     myStreamListener = MyStreamListener(cursor)
-    stream = tweepy.Stream(auth=api.auth, listener=myStreamListener(cursor=self.cursor))
+    stream = tweepy.Stream(auth=api.auth, listener=myStreamListener)
     stream.filter(languages=['en'], track=['the'])
 
 
