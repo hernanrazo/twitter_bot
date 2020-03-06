@@ -35,7 +35,7 @@ class MyStreamListener(tweepy.StreamListener):
             num_likes = status_dict['num_likes']
             num_retweets = status_dict['num_retweets']
 
-            db_queries.insert_raw_tweets_table(cursor, created_at, source_stream, status_id, user_id, screen_name, tweet_text, num_likes, num_retweets)
+            db_queries.insert_raw_tweets_table(self.cursor, created_at, source_stream, status_id, user_id, screen_name, tweet_text, num_likes, num_retweets)
 
         self.counter +=1
         if self.counter == self.max:
