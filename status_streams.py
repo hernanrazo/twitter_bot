@@ -84,7 +84,7 @@ def following_stream(api, cursor, user_name):
 #set streaming class and filter for the general stream
 def general_stream(api, cursor):
     myStreamListener = MyStreamListener(cursor)
-    stream = tweepy.Stream(auth=api.auth, listener=myStreamListener(cursor=self.cursor))
+    stream = tweepy.Stream(auth=api.auth, listener=myStreamListener(cursor))
     stream.filter(languages=['en'], track=['the'])
 
 
