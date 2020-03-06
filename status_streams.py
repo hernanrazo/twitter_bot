@@ -33,7 +33,7 @@ class MyStreamListener(tweepy.StreamListener):
             screen_name = status_dict['screen_name']
             tweet_text = status_dict['tweet_text']
             num_likes = status_dict['num_likes']
-            num_retweets = status_dict['num_retweers']
+            num_retweets = status_dict['num_retweets']
 
             db_queries.insert_raw_tweets_table(cursor, created_at, source_stream, status_id, user_id, screen_name, tweet_text, num_likes, num_retweets)
 
@@ -83,7 +83,7 @@ def following_stream(api, cursor, user_name):
 
 #set streaming class and filter for the general stream
 def general_stream(api, cursor):
-    myStreamListener = MyStreamListener()
+    myStreamListener = MyStreamListener(cursor)
     stream = tweepy.Stream(auth=api.auth, listener=myStreamListener(cursor=self.cursor))
     stream.filter(languages=['en'], track=['the'])
 
