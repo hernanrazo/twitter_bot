@@ -2,15 +2,13 @@ import psycopg2
 from psycopg2 import sql
 import random
 
-'''
-all functions relating to direct db interaction
-'''
+#all functions relating to direct db interaction
 
-'''
-===============================================================================
-========================check if tables/rows exist=============================
-===============================================================================
-'''
+
+
+
+#========================check if tables/rows iexist=============================
+
 #check if tweets table is empty. return 1 if yes, 0 if not
 def empty_check_tweets(cursor):
     cursor.execute('SELECT SIGN(COUNT(*)) FROM tweets')
@@ -18,11 +16,8 @@ def empty_check_tweets(cursor):
     return int(result[0])
 
 
-'''
-===============================================================================
-========================retrieving info stuff==================================
-===============================================================================
-'''
+#========================retrieving info stuff==================================
+
 #grab a random tweet
 def read_id(cursor):
     select_query = cursor.execute('SELECT id FROM tweets')
@@ -45,33 +40,23 @@ def read_raw_statuses(cursor):
     return cursor.fetchall()
 
 
-'''
-===============================================================================
-========================create table stuff=====================================
-===============================================================================
-'''
+#========================create table stuff=====================================
+
 #create table for tweets from both streams
 def create_temp_tweets_table(cursor):
-    cursor.execute('CREATE TABLE IF NOT EXISTS tempTweets(timeSaved TIMESTAMP NOT NULL DEFAULT NOW(), createdAt VARCHAR (50) NOT NULL, sourceStream VARCHAR (20) NOT NULL, statusID VARCHAR (35) NOT NULL, userID VARCHAR (20) PRIMARY KEY, screenName VARCHAR (140) NOT NULL, tweetText VARCHAR (300) NOT NULL, numLikes INTEGER DEFAULT 0, numRetweets INTEGER DEFAULT 0)')
+    cursor.execute('CREATE TABLE IF NOT EXISTS tempTweets(createdAt VARCHAR (50) NOT NULL, sourceStream VARCHAR (20) NOT NULL, statusID VARCHAR (35) NOT NULL, userID VARCHAR (20) PRIMARY KEY, screenName VARCHAR (140) NOT NULL, tweetText VARCHAR (300) NOT NULL, numLikes INTEGER DEFAULT 0, numRetweets INTEGER DEFAULT 0)')
     print('Successfully created tempTweets table')
 
 
-'''
-==============================================================================
-========================insert query stuff====================================
-==============================================================================
-'''
+#========================insert query stuff====================================
+
 #insert row into tempFollowingTweets table
 def insert_raw_tweets_table(cursor, createdAt, sourceStream, statusID, userID, screenName, tweetText, numLikes, numRetweets):
     cursor.execute('INSERT INTO tempTweets(createdAt, sourceStream, statusID, userID, screenName, tweetText) VALUES(%s, %s, %s, %s, %s, %s, %s, %s)', (createdAt, sourceStream, statusID, userID, screenName, tweetText, numLikes, numRetweets))
 
 
+#======================drop tables/deletion queries============================
 
-'''
-==============================================================================
-======================drop tables/deletion queries=============================
-==============================================================================
-'''
 #delete the tweet that matches the inputted string
 def delete_query(cursor, tweet):
     cursor.execute('DELETE FROM tweets WHERE tweet = %s', (tweet,))
