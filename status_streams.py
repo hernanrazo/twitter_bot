@@ -15,7 +15,7 @@ class MyStreamListener(tweepy.StreamListener):
         self.max = 1200
 
     #get tweets
-    def on_status(self, status):
+    def on_status(self, status, cursor):
         if not status.retweeted:
             status_dict = {'created_at': status.created_at.strftime('%y-%m-&d %H:%M'),
                     'source_stream': 'general stream',
