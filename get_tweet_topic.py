@@ -84,20 +84,25 @@ def guess_topic_pipeline(api, conn, model, corpus, classifier):
         #grab tweets from table
         statuses = db_queries.read_raw_statuses(cursor)
 
-        #iterate through each row, clean text, classify, and like the tweet using its id
-        print('Iterating db for streams...')
-        for row in statuses:
-            current_status = row[1]
-            score = guess_topic(current_status, model, corpus, classifier)
-            if row[2] != 'True':
-                if score > 0.5:
-                    api.create_favorite(row[0])
-                    print('Just liked: ', current_status)
-    #            else:
-    #                pass
+        try:
+            #iterate through each row, clean text, classify, and like the tweet using its id
+            print('Iterating db for streams...')
+            for row in statuses:
+                current_status = row[1]
+                score = guess_topic(current_status, model, corpus, classifier)
+                if row[2] != 'True':
+                    if score > 0.5:
+                        api.create_favorite(row[0])
+                        print('Just liked: ', current_status)
+                        print('with score: ', score)
+
+        except tweepy.TweepError as e:
+
+            if e.api_code == 144:
+                print(e)
 
         #drop temp table and close cursor
         print('Dropping the tempTweets table...')
         db_queries.drop_table(cursor, tempTweets)
         cursor.close()
-        time.sleep(21600) #there has to be a better way to do this
+        time.sleep(21600)
