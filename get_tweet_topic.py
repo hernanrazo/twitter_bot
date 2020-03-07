@@ -51,9 +51,9 @@ def guess_topic(raw_status, model, corpus, classifier):
     scaler = StandardScaler()
 
     #clean raw status, get bigrams, and corpus
-    clean_status = clean_status(raw_status)
-    bigram = get_bigrams(clean_status)
-    full_bigram = bigram[clean_status]
+    status = clean_status(raw_status)
+    bigram = get_bigrams(status)
+    full_bigram = bigram[status]
     corpus = corpus.doc2bow(full_bigram)
 
     #grab saved model and topic vector
