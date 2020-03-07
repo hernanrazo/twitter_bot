@@ -60,6 +60,6 @@ def delete_query(cursor, tweet):
 
 
 #drop a table. Needs specific table's name
-def drop_table(cursor, table_name):
-    cursor.execute('DROP TABLE %s', (table_name,))
-    print('Successfully dropped ', table_name)
+def drop_table_temp_tweets(cursor):
+    cursor.execute('DROP TABLE tempTweets')
+    print('Successfully dropped tempTweets table...)

@@ -103,6 +103,6 @@ def guess_topic_pipeline(api, conn, model, corpus, classifier):
 
         #drop temp table and close cursor
         print('Dropping the tempTweets table...')
-        db_queries.drop_table(cursor, 'tempTweets')
+        db_queries.drop_table_temp_tweets(cursor)
         cursor.close()
         time.sleep(21600)
