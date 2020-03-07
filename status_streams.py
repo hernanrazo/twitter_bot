@@ -98,5 +98,3 @@ def streaming_pipeline(api, cursor):
 
     #start streams for tweets from general population
     general_stream(api, cursor)
-
-    cursor.close()
