@@ -15,7 +15,7 @@ import status_streams
 '''
 code needed to retrieve the topic from a tweet
 '''
-
+nltk.download('punkt')
 #set stopwords
 nltk.download('stopwords')
 stop_words = nltk.corpus.stopwords.words('english')
@@ -93,8 +93,8 @@ def guess_topic_pipeline(api, conn, model, corpus, classifier):
                 if score > 0.5:
                     api.create_favorite(row[0])
                     print('Just liked: ', current_status)
-            else:
-                pass
+#            else:
+#                pass
 
         #drop temp table and close cursor
         print('Dropping the tempTweets table...')
