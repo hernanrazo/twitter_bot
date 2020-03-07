@@ -24,7 +24,8 @@ class MyStreamListener(tweepy.StreamListener):
                            'screen_name': status.user.name,
                            'tweet_text': status.text,
                            'num_likes': status.favorite_count,
-                           'num_retweets': status.retweet_count}
+                           'num_retweets': status.retweet_count
+                           'favorited': status.favorited}
 
             created_at = status_dict['created_at']
             source_stream = status_dict['source_stream']
@@ -34,8 +35,9 @@ class MyStreamListener(tweepy.StreamListener):
             tweet_text = status_dict['tweet_text']
             num_likes = status_dict['num_likes']
             num_retweets = status_dict['num_retweets']
+            favorited = status_dict['favorited']
 
-            db_queries.insert_raw_tweets_table(self.cursor, created_at, source_stream, status_id, user_id, screen_name, tweet_text, num_likes, num_retweets)
+            db_queries.insert_raw_tweets_table(self.cursor, created_at, source_stream, status_id, user_id, screen_name, tweet_text, num_likes, num_retweets, favorited)
 
         self.counter +=1
         if self.counter == self.max:
@@ -54,13 +56,14 @@ def following_stream(api, cursor, user_name):
             #ignore retweets
             if not status.retweeted:
                 status_dict = {'created_at': status.created_at.strftime('%y-%m-%d %H:%M'),
-                               'source_stream': 'following stream',
-                               'status_id': status.id_str,
-                               'user_id': status.user.id_str,
-                               'screen_name': status.user.name,
-                               'tweet_text':status.full_text,
-                               'num_likes':status.favorite_count,
-                               'num_retweets':status.retweet_count}
+                               'source_stream' : 'following stream',
+                               'status_id' : status.id_str,
+                               'user_id' : status.user.id_str,
+                               'screen_name' : status.user.name,
+                               'tweet_text' : status.full_text,
+                               'num_likes' : status.favorite_count,
+                               'num_retweets' : status.retweet_count,
+                               'favorited' : status.favorited}
 
                 created_at = status_dict['created_at']
                 source_stream = status_dict['source_stream']
@@ -70,8 +73,9 @@ def following_stream(api, cursor, user_name):
                 tweet_text = status_dict['tweet_text']
                 num_likes = status_dict['num_likes']
                 num_retweets = status_dict['num_retweets']
+                favorited = status_dict['favorited']
 
-                db_queries.insert_raw_tweets_table(cursor, created_at, source_stream, status_id, user_id, screen_name, tweet_text, num_likes, num_retweets)
+                db_queries.insert_raw_tweets_table(cursor, created_at, source_stream, status_id, user_id, screen_name, tweet_text, num_likes, num_retweets, favorited)
 
 
     #ignore error where user cannot be found

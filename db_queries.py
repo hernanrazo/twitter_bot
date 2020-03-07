@@ -33,7 +33,7 @@ def read_query(cursor, tweet_id):
 
 #get all tweets from the tempTweets table
 def read_raw_statuses(cursor):
-    cursor.execute('SELECT statusID, tweetText FROM tempTweets')
+    cursor.execute('SELECT statusID, tweetText, favorited FROM tempTweets')
     return cursor.fetchall()
 
 
@@ -41,15 +41,15 @@ def read_raw_statuses(cursor):
 
 #create table for tweets from both streams
 def create_temp_tweets_table(cursor):
-    cursor.execute('CREATE TABLE IF NOT EXISTS tempTweets(createdAt VARCHAR (50) NOT NULL, sourceStream VARCHAR (20) NOT NULL, statusID VARCHAR (35) NOT NULL, userID VARCHAR (20) NOT NULL, screenName VARCHAR (140) NOT NULL, tweetText VARCHAR (300) NOT NULL, numLikes INTEGER DEFAULT 0, numRetweets INTEGER DEFAULT 0)')
+    cursor.execute('CREATE TABLE IF NOT EXISTS tempTweets(createdAt VARCHAR (50) NOT NULL, sourceStream VARCHAR (20) NOT NULL, statusID VARCHAR (35) NOT NULL, userID VARCHAR (20) NOT NULL, screenName VARCHAR (140) NOT NULL, tweetText VARCHAR (300) NOT NULL, numLikes INTEGER DEFAULT 0, numRetweets INTEGER DEFAULT 0, favorited VARCHAR(7))')
     print('Successfully created tempTweets table')
 
 
 #========================insert query stuff====================================
 
 #insert row into tempFollowingTweets table
-def insert_raw_tweets_table(cursor, createdAt, sourceStream, statusID, userID, screenName, tweetText, numLikes, numRetweets):
-    cursor.execute('INSERT INTO tempTweets(createdAt, sourceStream, statusID, userID, screenName, tweetText, numLikes, numRetweets) VALUES(%s, %s, %s, %s, %s, %s, %s, %s)', (createdAt, sourceStream, statusID, userID, screenName, tweetText, numLikes, numRetweets))
+def insert_raw_tweets_table(cursor, createdAt, sourceStream, statusID, userID, screenName, tweetText, numLikes, numRetweets, favorited):
+    cursor.execute('INSERT INTO tempTweets(createdAt, sourceStream, statusID, userID, screenName, tweetText, numLikes, numRetweets) VALUES(%s, %s, %s, %s, %s, %s, %s, %s, %s)', (createdAt, sourceStream, statusID, userID, screenName, tweetText, numLikes, numRetweets, favorited))
 
 
 #======================drop tables/deletion queries============================
