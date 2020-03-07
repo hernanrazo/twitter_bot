@@ -100,7 +100,6 @@ def streaming_pipeline(api, cursor):
     friends_list = get_friends.get_friends(api)
     print(friends_list)
     for user in friends_list:
-        print('iterating following')
         f_stream = friends_stream(api, cursor, user)
 
     #start streams for tweets from general population
