@@ -17,15 +17,15 @@ class MyStreamListener(tweepy.StreamListener):
     #get tweets
     def on_status(self, status):
         if not status.retweeted:
-            status_dict = {'created_at': status.created_at.strftime('%y-%m-&d %H:%M'),
-                           'source_stream': 'general stream',
-                           'status_id': status.id_str,
-                           'user_id': status.user.id_str,
-                           'screen_name': status.user.name,
-                           'tweet_text': status.text,
-                           'num_likes': status.favorite_count,
-                           'num_retweets': status.retweet_count
-                           'favorited': status.favorited}
+            status_dict = {'created_at' : status.created_at.strftime('%y-%m-&d %H:%M'),
+                           'source_stream' : 'general stream',
+                           'status_id' : status.id_str,
+                           'user_id' : status.user.id_str,
+                           'screen_name' : status.user.name,
+                           'tweet_text' : status.text,
+                           'num_likes' : status.favorite_count,
+                           'num_retweets' : status.retweet_count,
+                           'favorited' : status.favorited}
 
             created_at = status_dict['created_at']
             source_stream = status_dict['source_stream']
@@ -55,7 +55,7 @@ def following_stream(api, cursor, user_name):
         for status in tweepy.Cursor(api.user_timeline, tweet_mode='extended', include_rts=False, screen_name=user_name).items(1):
             #ignore retweets
             if not status.retweeted:
-                status_dict = {'created_at': status.created_at.strftime('%y-%m-%d %H:%M'),
+                status_dict = {'created_at' : status.created_at.strftime('%y-%m-%d %H:%M'),
                                'source_stream' : 'following stream',
                                'status_id' : status.id_str,
                                'user_id' : status.user.id_str,
