@@ -2,7 +2,7 @@ import tweepy
 import os
 
 import db_queries
-import follow
+import get_friends
 
 #define class for the stream listener
 class MyStreamListener(tweepy.StreamListener):
@@ -49,8 +49,8 @@ class MyStreamListener(tweepy.StreamListener):
             print('Error trying to access tweets from user. Skipping to next user...')
             pass
 
-#get tweets from list of followers
-def following_stream(api, cursor, user_name):
+#get tweets from list of friends
+def friends_stream(api, cursor, user_name):
     try:
         for status in tweepy.Cursor(api.user_timeline, tweet_mode='extended', include_rts=False, screen_name=user_name).items(1):
             #ignore retweets
@@ -97,11 +97,11 @@ def streaming_pipeline(api, cursor):
     #get list of all users that are currently followed
     #iterate through the following_list and grab the single latest tweet
     print('getting following...')
-    following_list = follow.get_following(api)
-    print(following_list)
-    for user in following_list:
+    friends_list = get_friends.get_friends(api)
+    print(friends_list)
+    for user in friends_list:
         print('iterating following')
-        f_stream = following_stream(api, cursor, user)
-    print('getting general')
+        f_stream = friends_stream(api, cursor, user)
+
     #start streams for tweets from general population
     general_stream(api, cursor)
