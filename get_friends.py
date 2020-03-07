@@ -9,4 +9,4 @@ def get_friends(api):
     friends = tweepy.Cursor(api.friends, screen_name='WNUTSHANG').items()
     for user in friends:
         friends_list.append(user.screen_name)
-    return following_list
+    return friends_list
