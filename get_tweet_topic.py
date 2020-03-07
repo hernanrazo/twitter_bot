@@ -66,7 +66,7 @@ def guess_topic(raw_status, model, corpus, classifier):
     x = np.array(test_vector_list)
     x_fit = scaler.fit_transform(x)
     prediction = classifier.predict(x_fit)
-    score = top_topics[[prediction[0]][1]]
+    score = top_topics[prediction[0]][1]
     return score
 
 def guess_topic_pipeline(api, conn, model, corpus, classifier):
