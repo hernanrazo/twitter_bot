@@ -96,9 +96,10 @@ def general_stream(api, cursor):
 def streaming_pipeline(api, cursor):
     #get list of all users that are currently followed
     #iterate through the following_list and grab the single latest tweet
+    print('getting following...')
     following_list = follow.get_following(api)
     for user in following_list:
         f_stream = following_stream(api, cursor, user)
-
+    print('getting general')
     #start streams for tweets from general population
     general_stream(api, cursor)

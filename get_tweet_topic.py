@@ -91,7 +91,7 @@ def guess_topic_pipeline(api, conn, model, corpus, classifier):
                 current_status = row[1]
                 score = guess_topic(current_status, model, corpus, classifier)
                 if row[2] != 'True':
-                    if score > 0.5:
+                    if score > 0.85:
                         api.create_favorite(row[0])
                         print('Just liked: ', current_status)
                         print('with score: ', score)
@@ -103,6 +103,6 @@ def guess_topic_pipeline(api, conn, model, corpus, classifier):
 
         #drop temp table and close cursor
         print('Dropping the tempTweets table...')
-        db_queries.drop_table(cursor, temptweets)
+        db_queries.drop_table(cursor, 'tempTweets')
         cursor.close()
         time.sleep(21600)
