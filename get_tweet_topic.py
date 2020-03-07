@@ -57,7 +57,7 @@ def guess_topic(raw_status, model, corpus, classifier):
     corpus = corpus.doc2bow(full_bigram)
 
     #grab saved model and topic vector
-    topic_topics = model.get_document_topics(corpus, minimum_probability=0.0)
+    top_topics = model.get_document_topics(corpus, minimum_probability=0.0)
     topic_vector = [top_topics[i][1] for i in range(15)]
     test_vector_list.append(topic_vector)
 
