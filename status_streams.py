@@ -18,13 +18,13 @@ class MyStreamListener(tweepy.StreamListener):
     def on_status(self, status):
         if not status.retweeted:
             status_dict = {'created_at': status.created_at.strftime('%y-%m-&d %H:%M'),
-                    'source_stream': 'general stream',
-                    'status_id': status.id_str,
-                    'user_id': status.user.id_str,
-                    'screen_name': status.user.name,
-                    'tweet_text': status.text,
-                    'num_likes': status.favorite_count,
-                    'num_retweets': status.retweet_count}
+                           'source_stream': 'general stream',
+                           'status_id': status.id_str,
+                           'user_id': status.user.id_str,
+                           'screen_name': status.user.name,
+                           'tweet_text': status.text,
+                           'num_likes': status.favorite_count,
+                           'num_retweets': status.retweet_count}
 
             created_at = status_dict['created_at']
             source_stream = status_dict['source_stream']
