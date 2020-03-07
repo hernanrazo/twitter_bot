@@ -98,7 +98,6 @@ def streaming_pipeline(api, cursor):
     #iterate through the following_list and grab the single latest tweet
     print('getting following...')
     friends_list = get_friends.get_friends(api)
-    print(friends_list)
     for user in friends_list:
         f_stream = friends_stream(api, cursor, user)
 
