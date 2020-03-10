@@ -2,7 +2,7 @@ import psycopg2
 from psycopg2 import sql
 import random
 
-#all functions relating to direct db interaction
+'''all functions relating to direct db interaction'''
 
 #========================check if tables/rows iexist=============================
 

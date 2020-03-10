@@ -9,9 +9,7 @@ from psycopg2 import pool
 import publish_status
 import get_tweet_topic
 
-'''
-main file of bot. All other modules are called and implemented here
-'''
+'''main file of bot. All other modules are called and implemented here'''
 
 def main():
     #credentials for twitter api and database in heroku
@@ -50,7 +48,7 @@ def main():
         tweeting_conn = conn_pool.getconn()
         #return connection when done
         conn_pool.putconn(tweeting_conn)
-        print('returned tweeting thread connection...')
+        print('Returned tweeting thread connection...')
 
         #get connection from pool, pass cursor as an argument, start topic extration thread
         topic_conn = conn_pool.getconn()
@@ -59,7 +57,7 @@ def main():
         print('Started topic extraction thread...')
         #return connection when done
         conn_pool.putconn(topic_conn)
-        print('returned tweeting thread connection...')
+        print('Returned tweeting thread connection...')
 
 
 if __name__ == "__main__":
