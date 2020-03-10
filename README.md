@@ -71,8 +71,8 @@ References/Other Helpful Links
 [Wikipedia entry on Latent Dirichlet Allocation](https://en.wikipedia.org/wiki/Latent_Dirichlet_allocation)  
 [Additional article on Latent Dirichlet Allocation](https://towardsdatascience.com/light-on-math-machine-learning-intuitive-guide-to-latent-dirichlet-allocation-437c81220158)  
 [Additional article on Latent Dirichlet Allocation](https://towardsdatascience.com/nlp-extracting-the-main-topics-from-your-dataset-using-lda-in-minutes-21486f5aa925)  
-[Marc Kelechava's repo on LDA](https://github.com/marcmuon/nlp_yelp_review_unsupervised). 
-[Marc Kelechava's Medium article on LDA](https://towardsdatascience.com/unsupervised-nlp-topic-models-as-a-supervised-learning-input-cf8ee9e5cf28)
+[Marc Kelechava's repo on LDA](https://github.com/marcmuon/nlp_yelp_review_unsupervised)  
+[Marc Kelechava's Medium article on LDA](https://towardsdatascience.com/unsupervised-nlp-topic-models-as-a-supervised-learning-input-cf8ee9e5cf28)  
 [Blei, D. M., Ng, A. Y., Jordan, M. I. (2003). Latent Dirichlet Allocation. Journal of Machine Learning Research, 993-1022](http://www.jmlr.org/papers/volume3/blei03a/blei03a.pdf)  
 [Lin, J. (2016). On The Dirichlet Distribution. Queen's University Department of Mathematics and Statistics](https://mast.queensu.ca/~communications/Papers/msc-jiayu-lin.pdf)  
 [Examples of Twitter API use cases](https://realpython.com/twitter-bot-python-tweepy/#watching-for-twitter-activity)  
