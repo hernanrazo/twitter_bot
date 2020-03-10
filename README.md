@@ -1,6 +1,6 @@
 Twitter Bot
 ===
-This project is a twitter bot that uses Tweepy to iteract with twitter, Heroku for deployment, psycopg2 and postgresql for backend database applications, and latent dirichlet allocation (LDA) for topic classification. The two main features of this bot are status postings and determining whether tweets belongs to certain topics. Connections and cursors to the database are handled using multithreading and connection pools offered by python's native multithreading library. The model for topic prediction was trained using a dataset of over 120,000 tweets and currently distinguishes between 15 different topics. The classification algorithm used is stochastic gradient descent with modifired huber loss.
+This project is a twitter bot that uses Tweepy to iteract with twitter, Heroku for deployment, psycopg2 and postgresql for backend database applications, and latent dirichlet allocation (LDA) for topic classification. The two main features of this bot are status postings and determining whether tweets belongs to certain topics. Connections and cursors to the database are handled using multithreading and connection pools offered by python's native multithreading library. The model for topic prediction was trained using a dataset of over 120,000 tweets and currently distinguishes between 15 different topics. The classification algorithm used is stochastic gradient descent with modified huber loss.
 
 
 Setting up Twitter and Heroku
