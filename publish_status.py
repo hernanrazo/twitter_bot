@@ -31,10 +31,10 @@ def tweet_pipeline(api, conn):
 
     while empty_check==1:
         print('Passed empty check')
-        status_id = db_script.read_id(cursor)
+        status_id = db_queries.read_id(cursor)
         status= get_status(cursor, status_id)
         post_status(status, api)
-        db_script.delete_query(cursor, status)
+        db_queries.delete_query(cursor, status)
         conn.commit()
         print('Waiting for next tweet...')
         time.sleep(WAIT_TIME_IN_SEC)
