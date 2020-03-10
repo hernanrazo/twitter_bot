@@ -90,7 +90,7 @@ def guess_topic_pipeline(api, conn, model, corpus, classifier):
             for row in statuses:
                 current_status = row[1]
                 score = guess_topic(current_status, model, corpus, classifier)
-                print('Done scoring...')
+#                print('Done scoring...')
                 if row[2] != 'True':
                     if score > 0.85:
                         api.create_favorite(row[0])

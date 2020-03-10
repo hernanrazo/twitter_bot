@@ -12,7 +12,7 @@ contains all functions needed to post a tweet.
 
 #retrieve tweet from the database
 def get_status(cursor, selected_id):
-    tweet = db_script.read_query(cursor, selected_id)
+    tweet = db_queries.read_query(cursor, selected_id)
     print(tweet)
     return tweet
 
