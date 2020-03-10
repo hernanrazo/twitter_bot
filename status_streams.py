@@ -37,11 +37,14 @@ class MyStreamListener(tweepy.StreamListener):
             num_retweets = status_dict['num_retweets']
             favorited = status_dict['favorited']
 
+            #execute query with info from dictionary
             db_queries.insert_raw_tweets_table(self.cursor, created_at, source_stream, status_id, user_id, screen_name, tweet_text, num_likes, num_retweets, favorited)
 
+        #increment counter
         self.counter +=1
         if self.counter == self.max:
             return False
+
 
     #ignore error where user cannot be found
     def on_error():
@@ -56,7 +59,7 @@ def friends_stream(api, cursor, user_name):
             #ignore retweets
             if not status.retweeted:
                 status_dict = {'created_at' : status.created_at.strftime('%y-%m-%d %H:%M'),
-                               'source_stream' : 'following stream',
+                               'source_stream' : 'friend stream',
                                'status_id' : status.id_str,
                                'user_id' : status.user.id_str,
                                'screen_name' : status.user.name,
@@ -75,6 +78,7 @@ def friends_stream(api, cursor, user_name):
                 num_retweets = status_dict['num_retweets']
                 favorited = status_dict['favorited']
 
+                #execute query with info from dictionary
                 db_queries.insert_raw_tweets_table(cursor, created_at, source_stream, status_id, user_id, screen_name, tweet_text, num_likes, num_retweets, favorited)
 
 
