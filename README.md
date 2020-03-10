@@ -40,9 +40,9 @@ Text for posts are prewritten and stored in a database. The database is arranged
 To post a tweet, the bot retrieves an entry from the database and uses tweepy to post. After that entry is posted, it is deleted from the database. Currently, the bot is configured to post every 6 hours.  
 
 Schema for the tweets table:  
-Id | Tweet
----|---
-1 | text
+|Id | Tweet|
+|---|------|
+|1  | text |
   
 
 Tweet Topic Prediction Feature
@@ -50,7 +50,7 @@ Tweet Topic Prediction Feature
 
 The tweet topic prediction feature uses latent dirichlet allocation to extract topics from tweets. The model for this feature takes the dirichlet distribution as a feature vector and transfers it to a standard gradient descent classification algorithm. For more details on how I actually trained the model used in this bot, Take a look at [my other repo where I show the actual training script.](https://github.com/hrazo7/LDA-tweet-classification) Code in that repo was adapted from [this repo by Marc Kelechava](https://github.com/marcmuon/nlp_yelp_review_unsupervised). [Marc's Medium article](https://towardsdatascience.com/unsupervised-nlp-topic-models-as-a-supervised-learning-input-cf8ee9e5cf28) also goes into a bit more detail. The original authors of this method where the LDA distribution is used as a feature vector for another classification algorithm are Xuan-Hieu Phan, Le-Minh Nguyen, and Susumu Horiguchi. Their paper can be found [here](http://gibbslda.sourceforge.net/fp224-phan.pdf).  
 
-To obtain tweets, this bot uses a combination of twitter streams and iteration of user timelines. The twitter stream method obtains up to 1200 streams in one iteration. The user timelines method gets the single latest tweet from the friends of the authenticated user for each iteration. Both methods return the posting time, source stream (custom feature), status id, user id, screen name, status text, number of likes, number of retweets, and favorited boolean for each tweet object. All this information is stored in the database with schema:  
+To obtain tweets, this bot uses a combination of twitter streams and iteration of user timelines. The twitter stream method obtains up to 1200 entries in one iteration. The user timelines method gets the single latest tweet from the friends of the authenticated user for each iteration. Both methods return the posting time, source stream (custom feature), status id, user id, screen name, status text, number of likes, number of retweets, and favorited boolean for each tweet object. All this information is stored in the database with schema:  
 
 |createdAt        | sourceStream   | statusID | userID | screenName  | tweetText   | numLikes | numRetweets | favorited|
 |-----------------|----------------|----------|--------|-------------|-------------|----------|-------------|----------|
@@ -60,7 +60,7 @@ To obtain tweets, this bot uses a combination of twitter streams and iteration o
 |2019-01-01 23:23 | general stream | 1234     | 5678   | exampleName | exampleText | 190      | 69          | False    |
 
 
-After each stream method is complete, the bot iterates through the database table and prepares each status text entry for classification. The preparation includes removing twitter mentions, removing links, making all letters lowercase, removing stopwords, tokenizing, and converting to bigrams. The saved LDA model is then used to predict which topic the status would fall into. Only statuses with scores higher than 0.85 are considered for future action. If a status fulfills the score minimum, the bot will favorite it.  
+After each stream method is complete, the bot iterates through the database table and prepares each status text entry for classification. The preparation includes removing twitter mentions, removing links, making all letters lowercase, removing stopwords, tokenizing, and converting to bigrams. The saved LDA model is then used to predict which topic the status would fall into. Only statuses with scores higher than 0.85 are considered for future action. If a status fulfills the score minimum, the bot will favorite it. This procedure is set to run every 4 hours.  
 
 After the bot is done collecting, cleaning, and classifying statuses, it drops the table where everything was being stored. This is done in order to comply with any data storage limits provided by Heroku. Future versions of this bot do plan on implementing a long-term data storage system. This is also why the streams collect more information besides the status text. Stay tuned!  
 
