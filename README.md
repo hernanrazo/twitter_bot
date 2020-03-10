@@ -1,8 +1,12 @@
-#Twitter Bot
+Twitter Bot
+===
+
 This project is a twitter bot that uses Tweepy to iteract with twitter, Heroku for deployment, psycopg2 and postgresql for backend database applications, and latent dirichlet allocation for topic classification. The two main features of this bot are status postings and liking tweets that fit certain topics. Connections and cursors to the database are handled using nultithreading and connection pools offered by python's native multithreading library.
 
 
-##Setting up Twitter and Heroku
+Setting up Twitter and Heroku
+---
+
 There are many existing resources online that do a great job with explaining how to set up and obtain Twitter credentials. Heroku's website also already has very helpful documentation to get started
 with that. A Google search can easily reveal a few of these resources but listed below are some that I referenced many times:  
 [Apply for Twitter access](https://developer.twitter.com/en/apply-for-access)  
@@ -28,7 +32,9 @@ DB_PASSWORD = os.environ['DB_PASSWORD']
 ```
 You will also need to supply your twitter bot's screen name in the same manner. So far, the screen name is only referenced in the `find_friends.py` file  
 
-##Status Publishing Feature
+Status Publishing Feature
+---
+
 Text for posts are prewritten and stored in a database. The database is arranged so that each entry is composed of an integer ID and the tweet text.  
 
 To post a tweet, the bot retrieves an entry from the database and uses tweepy to post. After that entry is posted, it is deleted from the database. Currently, the bot is configured to post every 6 hours.  
@@ -39,17 +45,19 @@ Id | Tweet
 1 | text
   
 
-##Tweet Topic Prediction Feature
+Tweet Topic Prediction Feature
+---
+
 The tweet topic prediction feature uses latent dirichlet allocation to extract topics from tweets. The model for this feature takes the dirichlet distribution as a feature vector and transfers it to a standard gradient descent classification algorithm. For more details on how I actually trained the model used in this bot, Take a look at [my other repo where I show the actual training script.](https://github.com/hrazo7/LDA-tweet-classification) Code in that repo was adapted from [this repo by Marc Kelechava](https://github.com/marcmuon/nlp_yelp_review_unsupervised). [Marc's Medium article](https://towardsdatascience.com/unsupervised-nlp-topic-models-as-a-supervised-learning-input-cf8ee9e5cf28) also goes into a bit more detail. The original authors of this method where the LDA distribution is used as a feature vector for another classification algorithm are Xuan-Hieu Phan, Le-Minh Nguyen, and Susumu Horiguchi. Their paper can be found [here](http://gibbslda.sourceforge.net/fp224-phan.pdf).  
 
 To obtain tweets, this bot uses a combination of twitter streams and iteration of user timelines. The twitter stream method obtains up to 1200 streams in one iteration. The user timelines method gets the single latest tweet from the friends of the authenticated user for each iteration. Both methods return the posting time, source stream (custom feature), status id, user id, screen name, status text, number of likes, number of retweets, and favorited boolean for each tweet object. All this information is stored in the database with schema:  
 
-createdAt | sourceStream | statusID | userID | screenName | tweetText | numLikes | numRetweets | favorited
----|---|---|---|---|---|---|---|---|---
-2019-01-01 23:23 | general stream | 1234 | 5678 | exampleName | exampleText | 332 | 43 | True
-2019-01-01 23:23 | friend stream | 1234 | 5678 | exampleName | exampleText | 420 | 66 | True
-2019-01-01 23:23 | friend stream | 1234 | 5678 | exampleName | exampleText | 10995 | 3 | True
-2019-01-01 23:23 | general stream | 1234 | 5678 | exampleName | exampleText | 190 | 69 | True
+|createdAt        | sourceStream   | statusID | userID | screenName  | tweetText   | numLikes | numRetweets | favorited|
+|-----------------|----------------|----------|--------|-------------|-------------|----------|-------------|----------|
+|2019-01-01 23:23 | general stream | 1234     | 5678   | exampleName | exampleText | 332      | 43          | True     |
+|2019-01-01 23:23 | friend stream  | 1234     | 5678   | exampleName | exampleText | 420      | 66          | True     |
+|2019-01-01 23:23 | friend stream  | 1234     | 5678   | exampleName | exampleText | 10995    | 3           | True     |
+|2019-01-01 23:23 | general stream | 1234     | 5678   | exampleName | exampleText | 190      | 69          | False    |
 
 
 After each stream method is complete, the bot iterates through the database table and prepares each status text entry for classification. The preparation includes removing twitter mentions, removing links, making all letters lowercase, removing stopwords, tokenizing, and converting to bigrams. The saved LDA model is then used to predict which topic the status would fall into. Only statuses with scores higher than 0.85 are considered for future action. If a status fulfills the score minimum, the bot will favorite it.  
@@ -57,9 +65,9 @@ After each stream method is complete, the bot iterates through the database tabl
 After the bot is done collecting, cleaning, and classifying statuses, it drops the table where everything was being stored. This is done in order to comply with any data storage limits provided by Heroku. Future versions of this bot do plan on implementing a long-term data storage system. This is also why the streams collect more information besides the status text. Stay tuned!  
 
 
+References/Other Helpful Links
+---
 
-
-##References/Other Helpful Links
 [Wikipedia entry on Latent Dirichlet Allocation](https://en.wikipedia.org/wiki/Latent_Dirichlet_allocation)  
 [Additional article on Latent Dirichlet Allocation](https://towardsdatascience.com/light-on-math-machine-learning-intuitive-guide-to-latent-dirichlet-allocation-437c81220158)  
 [Additional article on Latent Dirichlet Allocation](https://towardsdatascience.com/nlp-extracting-the-main-topics-from-your-dataset-using-lda-in-minutes-21486f5aa925)  
