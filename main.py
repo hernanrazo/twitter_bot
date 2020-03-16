@@ -25,9 +25,9 @@ def main():
     DB_PASSWORD = os.environ['DB_PASSWORD']
 
     #retrieve saved pickles and model for topic extraction
-    lda_model = pd.read_pickle('saved_pickles_models/lda_model.model')
-    lda_id2word = pd.read_pickle('saved_pickles_models/train_id2word.pkl')
-    lda_huber_classifier = pd.read_pickle('saved_pickles_models/huber_classifier.pkl')
+    lda_model = pd.read_pickle('saved_pickles_models/lda_model2.model')
+    lda_id2word = pd.read_pickle('saved_pickles_models/id2word2.pkl')
+    lda_huber_classifier = pd.read_pickle('saved_pickles_models/huber_classifier2.pkl')
     print('Successfully retrieved needed files for topic extraction...')
 
     auth = tweepy.OAuthHandler(CONSUMER_KEY, CONSUMER_SECRET)
