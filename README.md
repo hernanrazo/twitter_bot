@@ -1,6 +1,6 @@
 Twitter Bot
 ===
-This project is a twitter bot that uses Tweepy to iteract with twitter, Heroku for deployment, psycopg2 and postgresql for backend database applications, and latent dirichlet allocation (LDA) for topic classification. The two main features of this bot are status postings and determining whether tweets belongs to certain topics. Connections and cursors to the database are handled using multithreading and connection pools offered by python's native multithreading library. The model for topic prediction was trained using a dataset of over 120,000 tweets and currently distinguishes between 15 different topics. The classification algorithm used is stochastic gradient descent with modified huber loss.
+This project is a twitter bot that uses Tweepy to iteract with twitter, Heroku for deployment, psycopg2 and postgresql for backend database applications, and latent dirichlet allocation (LDA) for topic classification. The two main features of this bot are status postings and determining whether tweets belongs to certain topics. Connections and cursors to the database are handled using multithreading and connection pools offered by python's native multithreading library. The model for topic prediction was trained using a dataset of over 120,000 tweets and currently distinguishes between 10 different topics. The classification algorithm used is stochastic gradient descent with modified huber loss.
 
 
 Setting up Twitter and Heroku
@@ -55,7 +55,7 @@ To obtain tweets, this bot uses a combination of twitter streams and iteration o
 |2019-01-01 23:23 | general stream | 1234     | 5678   | exampleName | exampleText | 190      | 69          | False    |
 
 
-After each stream method is complete, the bot iterates through the database table and prepares each status text entry for classification. The preparation includes removing twitter mentions, removing links, making all letters lowercase, removing stopwords, tokenizing, and converting to bigrams. The saved LDA model is then used to predict which topic the status would fall into. Only statuses with scores higher than 0.85 are considered for future action. If a status fulfills the score minimum, the bot will favorite it. This procedure is set to run every 4 hours.  
+After each stream method is complete, the bot iterates through the database table and prepares each status text entry for classification. The preparation includes removing twitter mentions, removing links, making all letters lowercase, removing stopwords, tokenizing, and converting to bigrams. The saved LDA model is then used to predict which topic the status would fall into. Only statuses with scores higher than 0.85 are considered for future action. If a status fulfills the score minimum, the bot will favorite it. This procedure is set to run every 6 hours.  
 
 After the bot is done collecting, cleaning, and classifying statuses, it drops the table where everything was being stored. This is done in order to comply with any data storage limits provided by Heroku. Future versions of this bot do plan on implementing a long-term data storage system. This is also why the streams collect more information besides the status text. Stay tuned!  
 
