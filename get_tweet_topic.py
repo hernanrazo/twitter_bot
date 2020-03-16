@@ -58,7 +58,7 @@ def guess_topic(raw_status, model, corpus, classifier):
 
     #grab saved model and topic vector
     top_topics = model.get_document_topics(corpus, minimum_probability=0.0)
-    topic_vector = [top_topics[i][1] for i in range(15)]
+    topic_vector = [top_topics[i][1] for i in range(10)]
     test_vector_list.append(topic_vector)
 
     #use topic vector and saved classifier to classify status
