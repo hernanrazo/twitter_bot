@@ -1,37 +1,65 @@
-asn1crypto==0.24.0
+aiohttp @ file:///opt/concourse/worker/volumes/live/46f5979f-e954-4ce4-5091-4db33d213a6e/volume/aiohttp_1603204926066/work
+appdirs @ file:///home/conda/feedstock_root/build_artifacts/appdirs_1603108395799/work
+asn1crypto @ file:///tmp/build/80754af9/asn1crypto_1596577642040/work
+async-timeout==3.0.1
+attrs @ file:///tmp/build/80754af9/attrs_1600298409949/work
 blinker==1.4
 boto==2.49.0
-boto3==1.11.9
-botocore==1.14.9
-certifi==2019.6.16
-cffi==1.12.3
+boto3 @ file:///tmp/build/80754af9/boto3_1603222673683/work
+botocore @ file:///tmp/build/80754af9/botocore_1603297996270/work
+brotlipy==0.7.0
+cachetools @ file:///tmp/build/80754af9/cachetools_1596822027882/work
+certifi==2020.6.20
+cffi @ file:///opt/concourse/worker/volumes/live/b9607b09-b777-4ff7-53dc-287727eb8574/volume/cffi_1600699191154/work
 chardet==3.0.4
-cryptography==2.7
+click==7.1.2
+cryptography @ file:///opt/concourse/worker/volumes/live/aeb63a26-659e-4edb-5405-74ba8e0c76f2/volume/cryptography_1601046839724/work
+distlib @ file:///home/conda/feedstock_root/build_artifacts/distlib_1593349814048/work
 docutils==0.15.2
-gensim==3.8.1
-idna==2.8
-jmespath==0.9.4
-joblib==0.14.1
-nltk==3.4.5
-numpy==1.18.1
+filelock @ file:///home/conda/feedstock_root/build_artifacts/filelock_1589994591731/work
+google-api-core @ file:///opt/concourse/worker/volumes/live/6862ffde-1aa6-49a5-4c46-7f243bc8efd0/volume/google-api-core-split_1601307056502/work
+google-auth @ file:///tmp/build/80754af9/google-auth_1601995530934/work
+google-cloud-core @ file:///tmp/build/80754af9/google-cloud-core_1602864831599/work
+google-cloud-storage @ file:///tmp/build/80754af9/google-cloud-storage_1603300774238/work
+google-crc32c @ file:///opt/concourse/worker/volumes/live/56ee6272-85c2-485c-4bf6-6638f2185795/volume/google-crc32c_1601305235277/work
+google-resumable-media @ file:///tmp/build/80754af9/google-resumable-media_1601995638063/work
+googleapis-common-protos @ file:///opt/concourse/worker/volumes/live/67da5ff9-d9f2-4d35-6118-48a7fbb6c52d/volume/googleapis-common-protos-feedstock_1600455661382/work
+idna @ file:///tmp/build/80754af9/idna_1593446292537/work
+jmespath @ file:///home/conda/feedstock_root/build_artifacts/jmespath_1589369830981/work
+joblib @ file:///tmp/build/80754af9/joblib_1601912903842/work
+mkl-fft==1.2.0
+mkl-random==1.1.1
+mkl-service==2.3.0
+multidict @ file:///opt/concourse/worker/volumes/live/e3f0befa-3c1c-4f9f-44d5-8afffb1ee62a/volume/multidict_1600456413421/work
+nltk @ file:///tmp/build/80754af9/nltk_1592496090529/work
+numpy @ file:///opt/concourse/worker/volumes/live/5572694e-967a-4c0c-52cf-b53d43e72de9/volume/numpy_and_numpy_base_1603491881791/work
 oauthlib==3.0.1
-pandas==1.0.0
-pipenv==2018.11.26
-psycopg2==2.8.3
-pycparser==2.19
+pandas @ file:///opt/concourse/worker/volumes/live/f14cf8c4-c564-4eff-4b17-158e90dbf88a/volume/pandas_1602088128240/work
+pipenv @ file:///home/conda/feedstock_root/build_artifacts/pipenv_1605420760703/work
+protobuf==3.13.0
+psycopg2 @ file:///opt/concourse/worker/volumes/live/c8a4b965-959f-4e6c-7792-4aa881d63c8d/volume/psycopg2_1594305121341/work
+pyasn1==0.4.8
+pyasn1-modules==0.2.8
+pycparser @ file:///tmp/build/80754af9/pycparser_1594388511720/work
 PyJWT==1.7.1
-pyOpenSSL==19.0.0
-PySocks==1.7.0
+pyOpenSSL @ file:///tmp/build/80754af9/pyopenssl_1594392929924/work
+PySocks @ file:///Users/runner/miniforge3/conda-bld/pysocks_1602326916036/work
 python-dateutil==2.8.1
-pytz==2019.3
-requests==2.22.0
-requests-oauthlib==1.2.0
-s3transfer==0.3.2
-scikit-learn==0.22.1
-scipy==1.4.1
-six==1.12.0
-smart-open==1.8.4
-tweepy==3.8.0
-urllib3==1.24.3
-virtualenv==16.7.8
-virtualenv-clone==0.5.3
+pytz==2020.1
+regex @ file:///opt/concourse/worker/volumes/live/7f106f75-0e11-45be-4c20-6b071e37c646/volume/regex_1602786678165/work
+requests @ file:///tmp/build/80754af9/requests_1592841827918/work
+requests-oauthlib @ file:///home/conda/feedstock_root/build_artifacts/requests-oauthlib_1595492159598/work
+rsa @ file:///tmp/build/80754af9/rsa_1596998415516/work
+s3transfer @ file:///opt/concourse/worker/volumes/live/31c45537-6259-49bc-5762-82231d9ec4b5/volume/s3transfer_1594419224140/work
+scikit-learn @ file:///opt/concourse/worker/volumes/live/111833a2-339b-4578-413b-7337bb8fe64a/volume/scikit-learn_1598376920601/work
+scipy @ file:///opt/concourse/worker/volumes/live/7f5e51f8-abf3-4409-4c56-a4fb14cc9869/volume/scipy_1593104185999/work
+six==1.15.0
+smart-open @ file:///tmp/build/80754af9/smart_open_1602262876581/work
+threadpoolctl @ file:///tmp/tmp9twdgx9k/threadpoolctl-2.1.0-py3-none-any.whl
+tqdm @ file:///tmp/build/80754af9/tqdm_1602185206534/work
+tweepy @ file:///home/conda/feedstock_root/build_artifacts/tweepy_1594498408379/work
+typing-extensions @ file:///tmp/build/80754af9/typing_extensions_1598376058250/work
+urllib3 @ file:///tmp/build/80754af9/urllib3_1603305693037/work
+virtualenv @ file:///Users/runner/miniforge3/conda-bld/virtualenv_1607345589414/work
+virtualenv-clone==0.5.4
+yarl @ file:///opt/concourse/worker/volumes/live/1ca49bfe-d6bc-4f62-4ca7-30c33d4f9b33/volume/yarl_1598045187281/work
